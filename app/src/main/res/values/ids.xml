@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="vpMain" type="id"/>
+    <item name="tvTanggal" type="id"/>
+    <item name="tvTeam1" type="id"/>
+    <item name="tvScore1" type="id"/>
+    <item name="tvVersus" type="id"/>
+    <item name="tvScore2" type="id"/>
+    <item name="tvTeam2" type="id"/>
+</resources>
