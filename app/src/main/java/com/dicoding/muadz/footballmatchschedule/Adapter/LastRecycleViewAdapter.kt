@@ -1,7 +1,5 @@
 package com.dicoding.muadz.footballmatchschedule.Adapter
 
-import android.graphics.Color
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
@@ -9,11 +7,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.Event
-import com.dicoding.muadz.footballmatchschedule.LastMatchContract
 import com.dicoding.muadz.footballmatchschedule.MatchDetailActivity
 import com.dicoding.muadz.footballmatchschedule.R
 import org.jetbrains.anko.*
-import org.jetbrains.anko.cardview.v7.cardView
 
 class LastRecycleViewAdapter(private val matches: List<Event>) : RecyclerView.Adapter<LastRecycleViewAdapter.MatchViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder{
@@ -42,7 +38,11 @@ class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view){
         awayScore.text = matches.intAwayScore
 
         matchCardView.setOnClickListener {
-            matchCardView.context.startActivity<MatchDetailActivity>("matchId" to matches.idEvent)
+            matchCardView.context.startActivity<MatchDetailActivity>(
+                "matchId" to matches.idEvent,
+                "homeId" to matches.idHomeTeam,
+                "awayId" to matches.idAwayTeam
+            )
         }
 
     }

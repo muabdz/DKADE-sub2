@@ -1,23 +1,17 @@
 package com.dicoding.muadz.footballmatchschedule
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
-import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Spinner
-import com.dicoding.muadz.footballmatchschedule.Adapter.LastRecycleViewAdapter
 import com.dicoding.muadz.footballmatchschedule.Adapter.MainPagerAdapter
-import com.dicoding.muadz.footballmatchschedule.ApiUtils.ApiRepository
-import com.dicoding.muadz.footballmatchschedule.Utils.invisible
-import com.dicoding.muadz.footballmatchschedule.Utils.visible
-import com.google.gson.Gson
-import org.jetbrains.anko.*
 import org.jetbrains.anko.design.tabLayout
+import org.jetbrains.anko.linearLayout
+import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.support.v4.viewPager
+import org.jetbrains.anko.wrapContent
 
 class MainActivity : AppCompatActivity(){
 

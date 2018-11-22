@@ -3,6 +3,8 @@ package com.dicoding.muadz.footballmatchschedule
 data class Event(
     val dateEvent: String? = null,
     val idEvent: String? = null,
+    val idHomeTeam: String? = null,
+    val idAwayTeam: String? = null,
     val intAwayScore: String? = null,
     val intHomeScore: String? = null,
     val strAwayTeam: String? = null,

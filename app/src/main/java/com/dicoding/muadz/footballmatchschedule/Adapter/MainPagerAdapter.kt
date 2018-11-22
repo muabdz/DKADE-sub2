@@ -1,7 +1,7 @@
 package com.dicoding.muadz.footballmatchschedule.Adapter
 
-import android.support.v4.app.FragmentManager
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.dicoding.muadz.footballmatchschedule.FragmentPages.LastMatchFragment
 import com.dicoding.muadz.footballmatchschedule.FragmentPages.NextMatchFragment

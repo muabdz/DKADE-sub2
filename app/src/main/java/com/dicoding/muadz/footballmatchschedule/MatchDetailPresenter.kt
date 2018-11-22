@@ -26,4 +26,20 @@ class MatchDetailPresenter(private val view : MatchDetailContract.View,
             }
         }
     }
+
+    override fun getTeamBadge(TeamId: String?, id: Int) {
+        view.showLoading()
+        doAsync {
+            val data = gson.fromJson(
+                apiRepository
+                    .doRequest(SportDBApi.getTeamBadge(TeamId)),
+                Badges::class.java
+            )
+
+            uiThread {
+                view.hideLoading()
+                view.showTeamBadge(data.badges, id)
+            }
+        }
+    }
 }

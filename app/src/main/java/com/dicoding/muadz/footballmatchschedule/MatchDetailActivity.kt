@@ -2,20 +2,20 @@ package com.dicoding.muadz.footballmatchschedule
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.ApiUtils.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.Utils.invisible
 import com.dicoding.muadz.footballmatchschedule.Utils.visible
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_match_detail.*
-import org.jetbrains.anko.find
+import com.squareup.picasso.Picasso
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
 
     private lateinit var progressBar: ProgressBar
     private var matches: MutableList<Event> = mutableListOf()
+    private var badges: MutableList<Badge> = mutableListOf()
     private lateinit var matchDetailPresenter: MatchDetailPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +24,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         val request = ApiRepository()
         val gson = Gson()
         val matchId = intent.extras.get("matchId")
+        val homeId = intent.extras.get("homeId")
+        val awayId = intent.extras.get("awayId")
         matchDetailPresenter = MatchDetailPresenter(this, request, gson)
         matchDetailPresenter.getMatchDetail(matchId as String?)
+        matchDetailPresenter.getTeamBadge(homeId as String?, R.id.ivTeam1)
+        matchDetailPresenter.getTeamBadge(awayId as String?, R.id.ivTeam2)
 //        progressBar = view.find(R.id.progressBar)
 
         progressBar = findViewById(R.id.progressBar1)
@@ -104,6 +108,17 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailContract.View {
         awayFw.text = strAwayLineupForward
         homeSub.text = strHomeLineupSubstitutes
         awaySub.text = strAwayLineupSubstitutes
+
+    }
+
+    override fun showTeamBadge(logo: List<Badge>, id: Int) {
+        badges.clear()
+        badges.addAll(logo)
+
+        val ivLogo: ImageView = findViewById(id)
+        val teamBadge: String? = badges.first().strTeamBadge
+
+        Picasso.get().load(teamBadge).into(ivLogo)
     }
 
 }
