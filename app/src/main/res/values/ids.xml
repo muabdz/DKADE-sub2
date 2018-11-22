@@ -7,4 +7,6 @@
     <item name="tvVersus" type="id"/>
     <item name="tvScore2" type="id"/>
     <item name="tvTeam2" type="id"/>
+    <item name="tlMain" type="id"/>
+    <item name="matchCard" type="id"/>
 </resources>

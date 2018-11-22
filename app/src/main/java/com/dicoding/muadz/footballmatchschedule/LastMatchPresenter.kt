@@ -1,7 +1,6 @@
 package com.dicoding.muadz.footballmatchschedule
 
 import com.dicoding.muadz.footballmatchschedule.ApiUtils.ApiRepository
-import com.dicoding.muadz.footballmatchschedule.ApiUtils.Matches
 import com.dicoding.muadz.footballmatchschedule.ApiUtils.SportDBApi
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync

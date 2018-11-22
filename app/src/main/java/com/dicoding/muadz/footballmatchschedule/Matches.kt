@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.ApiUtils
+package com.dicoding.muadz.footballmatchschedule
 
 import com.google.gson.annotations.SerializedName
 

@@ -6,25 +6,24 @@ import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class NextMatchPresenter(
-    private val view : NextMatchContract.View,
+class MatchDetailPresenter(private val view : MatchDetailContract.View,
     private val apiRepository: ApiRepository,
     private val gson: Gson
-) : NextMatchContract.Presenter {
+): MatchDetailContract.Presenter {
 
-    override fun getNextMatch() {
+    override fun getMatchDetail(matchId: String?) {
         view.showLoading()
         doAsync {
-            val data = gson.fromJson(apiRepository
-                .doRequest(SportDBApi.getNextMatches()),
+            val data = gson.fromJson(
+                apiRepository
+                    .doRequest(SportDBApi.getMatchDetail(matchId)),
                 Matches::class.java
             )
 
             uiThread {
                 view.hideLoading()
-                view.showNextMatch(data.matches)
+                view.showMatchDetail(data.matches)
             }
         }
     }
-
 }

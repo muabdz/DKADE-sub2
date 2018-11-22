@@ -1,7 +1,5 @@
 package com.dicoding.muadz.footballmatchschedule
 
-import com.dicoding.muadz.footballmatchschedule.ApiUtils.Event
-
 interface NextMatchContract {
 
     interface View {

@@ -1,14 +1,15 @@
 package com.dicoding.muadz.footballmatchschedule
 
-interface LastMatchContract {
+interface MatchDetailContract {
 
     interface View {
         fun showLoading()
         fun hideLoading()
-        fun showLastMatch(data : List<Event>)
+        fun showMatchDetail(data: List<Event>)
+
     }
 
     interface Presenter {
-        fun getLastMatch()
+        fun getMatchDetail(matchId: String?)
     }
 }
