@@ -18,11 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- <fragment android:name=".FragmentPages.LastMatchFragment"> -->
-        <!-- </fragment> -->
-        <!-- <fragment android:name=".FragmentPages.NextMatchFragment"> -->
-        <!-- </fragment> -->
-        <activity android:name=".MatchDetailActivity">
+        <activity android:name=".matchdetail.MatchDetailActivity">
         </activity>
     </application>
 

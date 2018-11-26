@@ -1,11 +1,14 @@
-package com.dicoding.muadz.footballmatchschedule
+package com.dicoding.muadz.footballmatchschedule.matchdetail
+
+import com.dicoding.muadz.footballmatchschedule.Badge
+import com.dicoding.muadz.footballmatchschedule.Match
 
 interface MatchDetailContract {
 
     interface View {
         fun showLoading()
         fun hideLoading()
-        fun showMatchDetail(data: List<Event>)
+        fun showMatchDetail(data: List<Match>)
         fun showTeamBadge(logo: List<Badge>, id: Int)
     }
 

@@ -1,6 +1,6 @@
 package com.dicoding.muadz.footballmatchschedule
 
-data class Event(
+data class Match(
     val dateEvent: String? = null,
     val idEvent: String? = null,
     val idHomeTeam: String? = null,

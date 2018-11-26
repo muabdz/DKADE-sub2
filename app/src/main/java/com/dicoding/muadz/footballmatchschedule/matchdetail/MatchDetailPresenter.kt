@@ -1,14 +1,16 @@
-package com.dicoding.muadz.footballmatchschedule
+package com.dicoding.muadz.footballmatchschedule.matchdetail
 
-import com.dicoding.muadz.footballmatchschedule.ApiUtils.ApiRepository
-import com.dicoding.muadz.footballmatchschedule.ApiUtils.SportDBApi
+import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
+import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
+import com.dicoding.muadz.footballmatchschedule.Badges
+import com.dicoding.muadz.footballmatchschedule.Matches
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 class MatchDetailPresenter(private val view : MatchDetailContract.View,
-    private val apiRepository: ApiRepository,
-    private val gson: Gson
+                           private val apiRepository: ApiRepository,
+                           private val gson: Gson
 ): MatchDetailContract.Presenter {
 
     override fun getMatchDetail(matchId: String?) {

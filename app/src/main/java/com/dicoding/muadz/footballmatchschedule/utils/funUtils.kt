@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.Utils
+package com.dicoding.muadz.footballmatchschedule.utils
 
 import android.view.View
 

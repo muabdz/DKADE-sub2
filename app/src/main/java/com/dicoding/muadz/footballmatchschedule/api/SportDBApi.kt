@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.ApiUtils
+package com.dicoding.muadz.footballmatchschedule.api
 
 import android.net.Uri
 import com.dicoding.muadz.footballmatchschedule.BuildConfig

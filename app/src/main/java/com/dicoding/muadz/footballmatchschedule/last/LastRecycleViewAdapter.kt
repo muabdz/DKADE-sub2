@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.Adapter
+package com.dicoding.muadz.footballmatchschedule.last
 
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.dicoding.muadz.footballmatchschedule.Event
-import com.dicoding.muadz.footballmatchschedule.MatchDetailActivity
+import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.matchdetail.MatchDetailActivity
 import com.dicoding.muadz.footballmatchschedule.R
 import org.jetbrains.anko.*
 
-class LastRecycleViewAdapter(private val matches: List<Event>) : RecyclerView.Adapter<LastRecycleViewAdapter.MatchViewHolder>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder{
-        return MatchViewHolder(MatchCard().createView(AnkoContext.create(parent.context, parent)))
+class LastRecycleViewAdapter(private val matches: List<Match>) : RecyclerView.Adapter<LastRecycleViewAdapter.MatchViewHolder>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
+        return MatchViewHolder(
+            MatchCard().createView(
+                AnkoContext.create(parent.context, parent)
+            )
+        )
     }
     override fun getItemCount(): Int =matches.size
 
@@ -30,7 +34,7 @@ class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view){
     private val awayScore: TextView = view.find(R.id.tvScore2)
     private val matchCardView : LinearLayout = view.find(R.id.matchCard)
 
-    fun bindItem(matches: Event) {
+    fun bindItem(matches: Match) {
         matchDate.text = matches.strDate
         homeName.text = matches.strHomeTeam
         homeScore.text = matches.intHomeScore

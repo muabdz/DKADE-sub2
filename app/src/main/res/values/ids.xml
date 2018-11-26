@@ -9,4 +9,5 @@
     <item name="tvTeam2" type="id"/>
     <item name="tlMain" type="id"/>
     <item name="matchCard" type="id"/>
+    <item name="bottom_navigation" type="id"/>
 </resources>

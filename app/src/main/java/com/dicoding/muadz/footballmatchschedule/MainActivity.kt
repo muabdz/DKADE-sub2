@@ -1,42 +1,59 @@
 package com.dicoding.muadz.footballmatchschedule
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
-import android.widget.LinearLayout
-import com.dicoding.muadz.footballmatchschedule.Adapter.MainPagerAdapter
-import org.jetbrains.anko.design.tabLayout
-import org.jetbrains.anko.linearLayout
-import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.support.v4.viewPager
-import org.jetbrains.anko.wrapContent
+import com.dicoding.muadz.footballmatchschedule.R.layout.activity_main
+import com.dicoding.muadz.footballmatchschedule.favorite.FavoriteMatchFragment
+import com.dicoding.muadz.footballmatchschedule.last.LastMatchFragment
+import com.dicoding.muadz.footballmatchschedule.next.NextMatchFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
 
-    private lateinit var viewPagerMain: ViewPager
-    private lateinit var tabLayoutMain: TabLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        linearLayout{
-            lparams(width = matchParent, height = wrapContent)
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-
-            tabLayoutMain = tabLayout {
-                id = R.id.tlMain
+        setContentView(activity_main)
+        bottom_navigation.setOnNavigationItemSelectedListener{item ->
+            when (item.itemId){
+                R.id.last_matches ->{
+                    loadLastMatchFragment(savedInstanceState)
+                }
+                R.id.next_matches ->{
+                    loadNextMatchFragment(savedInstanceState)
+                }
+                R.id.favorites ->{
+                    loadFavoriteMatchFragment(savedInstanceState)
+                }
             }
-
-            viewPagerMain = viewPager {
-                id = R.id.vpMain
-
-            }.lparams(width = matchParent, height = matchParent)
-
+            true
         }
+        bottom_navigation.selectedItemId = R.id.last_matches
+    }
 
-        val mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
-        viewPagerMain.adapter = mainPagerAdapter
-        tabLayoutMain.setupWithViewPager(viewPagerMain)
+    private fun loadLastMatchFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_container, LastMatchFragment(), LastMatchFragment::class.java.simpleName)
+                .commit()
+        }
+    }
+
+    private fun loadNextMatchFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_container, NextMatchFragment(), NextMatchFragment::class.java.simpleName)
+                .commit()
+        }
+    }
+
+    private fun loadFavoriteMatchFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_container, FavoriteMatchFragment(), FavoriteMatchFragment::class.java.simpleName)
+                .commit()
+        }
     }
 }
