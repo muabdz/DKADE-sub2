@@ -4,12 +4,12 @@ import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.ScrollView
 import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.Badge
 import com.dicoding.muadz.footballmatchschedule.Favorite
@@ -26,14 +26,13 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.onRefresh
 
 
 class MatchDetailActivity : AppCompatActivity(),
     MatchDetailContract.View {
 
     private lateinit var progressBar: ProgressBar
-    private lateinit var swipeRefresh: SwipeRefreshLayout
+    private lateinit var scrollView: ScrollView
     private lateinit var matchDetailPresenter: MatchDetailPresenter
     private lateinit var matchId: String
     private lateinit var homeId: String
@@ -55,8 +54,13 @@ class MatchDetailActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.title = "Match Detail"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         setContentView(R.layout.activity_match_detail)
-        swipeRefresh = findViewById(R.id.swipeRefresh)
+        scrollView = findViewById(R.id.scrollView)
+
         val request = ApiRepository()
         val gson = Gson()
         matchId = intent.getStringExtra("matchId")
@@ -73,10 +77,6 @@ class MatchDetailActivity : AppCompatActivity(),
 //        progressBar = view.find(R.id.progressBar)
 
         progressBar = findViewById(R.id.progressBar1)
-
-        swipeRefresh.onRefresh {
-            matchDetailPresenter.getMatchDetail(matchId)
-        }
     }
 
     private fun favoriteState(){
@@ -171,6 +171,7 @@ class MatchDetailActivity : AppCompatActivity(),
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
         menuItem = menu
+        setFavorite()
         return true
     }
 
@@ -215,8 +216,9 @@ class MatchDetailActivity : AppCompatActivity(),
                     Favorite.HOME_SCORE to intHomeScore,
                     Favorite.AWAY_SCORE to intAwayScore)
             }
+            scrollView.snackbar("Added to favorite").show()
         }catch (e: SQLiteConstraintException){
-            swipeRefresh.snackbar(e.localizedMessage).show()
+            scrollView.snackbar(e.localizedMessage).show()
         }
     }
 
@@ -226,9 +228,9 @@ class MatchDetailActivity : AppCompatActivity(),
                 delete(Favorite.TABLE_FAVORITE, "(MATCH_ID = {id})",
                     "id" to matchId)
             }
-            swipeRefresh.snackbar("Removed from favorite").show()
+            scrollView.snackbar("Removed from favorite").show()
         }catch (e: SQLiteConstraintException){
-            swipeRefresh.snackbar(e.localizedMessage).show()
+            scrollView.snackbar(e.localizedMessage).show()
         }
     }
 

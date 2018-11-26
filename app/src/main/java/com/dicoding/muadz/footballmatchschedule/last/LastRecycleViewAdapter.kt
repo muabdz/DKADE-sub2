@@ -84,7 +84,7 @@ class MatchCard : AnkoComponent<ViewGroup> {
                     textView {
                         id = R.id.tvVersus
                         textSize = 12f
-                        text = "vs"
+                        text = context.getString(R.string.vs)
                         gravity = Gravity.CENTER
                         padding = dip(10)
                     }.lparams(width = 0, weight = 1f, height = wrapContent)

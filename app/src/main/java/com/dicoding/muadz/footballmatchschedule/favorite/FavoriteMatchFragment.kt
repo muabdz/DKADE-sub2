@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import com.dicoding.muadz.footballmatchschedule.Favorite
 import com.dicoding.muadz.footballmatchschedule.matchdetail.MatchDetailActivity
 import org.jetbrains.anko.*
@@ -20,7 +19,7 @@ import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class FavoriteMatchFragment: Fragment(), AnkoComponent<Context> {
+class FavoriteMatchFragment : Fragment(), AnkoComponent<Context> {
 
     private var favorites: MutableList<Favorite> = mutableListOf()
     private lateinit var adapter: FavoriteRecycleViewAdapter
@@ -34,26 +33,26 @@ class FavoriteMatchFragment: Fragment(), AnkoComponent<Context> {
     }
 
     override fun createView(ui: AnkoContext<Context>): View = with(ui) {
-            linearLayout {
-                lparams (width = matchParent, height = matchParent)
-                orientation = LinearLayout.VERTICAL
-                topPadding = dip(16)
-                leftPadding = dip(16)
-                rightPadding = dip(16)
+        linearLayout {
+            lparams(width = matchParent, height = matchParent)
+            orientation = LinearLayout.VERTICAL
+            topPadding = dip(16)
+            leftPadding = dip(16)
+            rightPadding = dip(16)
 
-                swipeRefresh = swipeRefreshLayout {
+            swipeRefresh = swipeRefreshLayout {
 
-                    relativeLayout{
-                        lparams (width = matchParent, height = wrapContent)
+                relativeLayout {
+                    lparams(width = matchParent, height = wrapContent)
 
-                        listMatch = recyclerView {
-                            lparams (width = matchParent, height = wrapContent)
-                            layoutManager = LinearLayoutManager(ctx)
-                        }
+                    listMatch = recyclerView {
+                        lparams(width = matchParent, height = wrapContent)
+                        layoutManager = LinearLayoutManager(ctx)
                     }
                 }
             }
         }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -62,7 +61,8 @@ class FavoriteMatchFragment: Fragment(), AnkoComponent<Context> {
             context?.startActivity<MatchDetailActivity>(
                 "matchId" to "${it.matchId}",
                 "homeId" to "${it.homeId}",
-                "awayId" to "${it.awayId}")
+                "awayId" to "${it.awayId}"
+            )
         }
 
         listMatch.adapter = adapter
