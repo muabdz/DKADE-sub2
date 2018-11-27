@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Football Match Schedule</string>
-    <string name="vs">vs</string>
     <string name="goals">Goals</string>
     <string name="shots">Shots</string>
     <string name="lineups">Lineups</string>
@@ -13,4 +12,5 @@
     <string name="next_match">Next Match</string>
     <string name="favorites">Favorites</string>
     <string name="vs">vs</string>
+    <string name="errorMsg">Failed to load match</string>
 </resources>

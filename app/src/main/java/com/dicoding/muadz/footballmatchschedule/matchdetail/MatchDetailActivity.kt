@@ -21,6 +21,7 @@ import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
@@ -37,7 +38,7 @@ class MatchDetailActivity : AppCompatActivity(),
     private lateinit var matchId: String
     private lateinit var homeId: String
     private lateinit var awayId: String
-    private var idEvent:String? = null
+    private var idEvent: String? = null
     private var strDate: String? = null
     private var idHomeTeam: String? = null
     private var idAwayTeam: String? = null
@@ -74,16 +75,17 @@ class MatchDetailActivity : AppCompatActivity(),
         matchDetailPresenter.getMatchDetail(matchId as String?)
         matchDetailPresenter.getTeamBadge(homeId as String?, R.id.ivTeam1)
         matchDetailPresenter.getTeamBadge(awayId as String?, R.id.ivTeam2)
-//        progressBar = view.find(R.id.progressBar)
 
         progressBar = findViewById(R.id.progressBar1)
     }
 
-    private fun favoriteState(){
-        database.use{
+    private fun favoriteState() {
+        database.use {
             val result = select(Favorite.TABLE_FAVORITE)
-                .whereArgs("(MATCH_ID = {id})",
-                    "id" to matchId)
+                .whereArgs(
+                    "(MATCH_ID = {id})",
+                    "id" to matchId
+                )
             val favorite = result.parseList(classParser<Favorite>())
             if (!favorite.isEmpty()) isFavorite = true
         }
@@ -176,16 +178,18 @@ class MatchDetailActivity : AppCompatActivity(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
-            android.R.id.home ->{
+        return when (item.itemId) {
+            android.R.id.home -> {
                 finish()
                 true
             }
-            R.id.add_to_favorite ->{
-                if (isFavorite) removeFromFavorite() else addToFavorite()
+            R.id.add_to_favorite -> {
+                if (!progressBar1.isShown) {
+                    if (isFavorite) removeFromFavorite() else addToFavorite()
 
-                isFavorite = !isFavorite
-                setFavorite()
+                    isFavorite = !isFavorite
+                    setFavorite()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -202,9 +206,9 @@ class MatchDetailActivity : AppCompatActivity(),
         Picasso.get().load(teamBadge).into(ivLogo)
     }
 
-    private fun addToFavorite(){
+    private fun addToFavorite() {
         try {
-            database.use{
+            database.use {
                 insert(
                     Favorite.TABLE_FAVORITE,
                     Favorite.MATCH_ID to idEvent,
@@ -214,22 +218,25 @@ class MatchDetailActivity : AppCompatActivity(),
                     Favorite.HOME_NAME to strHomeTeam,
                     Favorite.AWAY_NAME to strAwayTeam,
                     Favorite.HOME_SCORE to intHomeScore,
-                    Favorite.AWAY_SCORE to intAwayScore)
+                    Favorite.AWAY_SCORE to intAwayScore
+                )
             }
             scrollView.snackbar("Added to favorite").show()
-        }catch (e: SQLiteConstraintException){
+        } catch (e: SQLiteConstraintException) {
             scrollView.snackbar(e.localizedMessage).show()
         }
     }
 
-    private fun removeFromFavorite(){
+    private fun removeFromFavorite() {
         try {
-            database.use{
-                delete(Favorite.TABLE_FAVORITE, "(MATCH_ID = {id})",
-                    "id" to matchId)
+            database.use {
+                delete(
+                    Favorite.TABLE_FAVORITE, "(MATCH_ID = {id})",
+                    "id" to matchId
+                )
             }
             scrollView.snackbar("Removed from favorite").show()
-        }catch (e: SQLiteConstraintException){
+        } catch (e: SQLiteConstraintException) {
             scrollView.snackbar(e.localizedMessage).show()
         }
     }
