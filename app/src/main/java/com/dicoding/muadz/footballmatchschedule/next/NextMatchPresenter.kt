@@ -4,6 +4,9 @@ import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
 import com.dicoding.muadz.footballmatchschedule.Matches
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -15,16 +18,14 @@ class NextMatchPresenter(
 
     override fun getNextMatch() {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(Dispatchers.Main) {
             val data = gson.fromJson(apiRepository
-                .doRequest(SportDBApi.getNextMatches()),
+                .doRequest(SportDBApi.getNextMatches()).await(),
                 Matches::class.java
             )
 
-            uiThread {
                 view.hideLoading()
                 view.showNextMatch(data.matches)
-            }
         }
     }
 

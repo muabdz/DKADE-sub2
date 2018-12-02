@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
@@ -49,6 +51,7 @@ class LastMatchFragment : Fragment(), LastMatchContract.View {
                         lparams(width = matchParent, height = wrapContent)
 
                         listMatch = recyclerView {
+                            id = R.id.last_match_list
                             lparams(width = matchParent, height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
                         }
@@ -84,5 +87,10 @@ class LastMatchFragment : Fragment(), LastMatchContract.View {
         matches.clear()
         matches.addAll(data)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showErrorPage() {
+        
+
     }
 }

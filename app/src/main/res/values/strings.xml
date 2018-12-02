@@ -13,4 +13,6 @@
     <string name="favorites">Favorites</string>
     <string name="vs">vs</string>
     <string name="errorMsg">Failed to load match</string>
+    <string name="loading_error">Loading error</string>
+    <string name="error_text">Error loading page.</string>
 </resources>

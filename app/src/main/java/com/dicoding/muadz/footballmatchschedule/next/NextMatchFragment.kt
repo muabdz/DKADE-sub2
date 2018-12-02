@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
 import com.google.gson.Gson
@@ -49,6 +50,7 @@ class NextMatchFragment : Fragment(), NextMatchContract.View {
                         lparams (width = matchParent, height = wrapContent)
 
                         listMatch = recyclerView {
+                            id = R.id.next_match_list
                             lparams (width = matchParent, height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
                         }

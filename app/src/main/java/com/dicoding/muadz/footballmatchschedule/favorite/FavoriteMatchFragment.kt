@@ -16,10 +16,11 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class FavoriteMatchFragment : Fragment(), AnkoComponent<Context> {
+class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
 
     private var favorites: MutableList<Favorite> = mutableListOf()
     private lateinit var adapter: FavoriteRecycleViewAdapter
@@ -29,54 +30,44 @@ class FavoriteMatchFragment : Fragment(), AnkoComponent<Context> {
         get() = MatchDatabaseOpenHelper.getInstance(applicationContext)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return createView(AnkoContext.create(requireContext()))
-    }
+        return UI {
+            linearLayout {
+                lparams(width = matchParent, height = matchParent)
+                orientation = LinearLayout.VERTICAL
+                topPadding = dip(16)
+                leftPadding = dip(16)
+                rightPadding = dip(16)
 
-    override fun createView(ui: AnkoContext<Context>): View = with(ui) {
-        linearLayout {
-            lparams(width = matchParent, height = matchParent)
-            orientation = LinearLayout.VERTICAL
-            topPadding = dip(16)
-            leftPadding = dip(16)
-            rightPadding = dip(16)
+                swipeRefresh = swipeRefreshLayout {
 
-            swipeRefresh = swipeRefreshLayout {
-
-                relativeLayout {
-                    lparams(width = matchParent, height = wrapContent)
-
-                    listMatch = recyclerView {
+                    relativeLayout {
                         lparams(width = matchParent, height = wrapContent)
-                        layoutManager = LinearLayoutManager(ctx)
+
+                        listMatch = recyclerView {
+                            lparams(width = matchParent, height = wrapContent)
+                            layoutManager = LinearLayoutManager(ctx)
+                        }
                     }
                 }
+                swipeRefresh.onRefresh {
+                    showFavorite()
+                }
             }
-        }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        adapter = FavoriteRecycleViewAdapter(favorites) {
-            context?.startActivity<MatchDetailActivity>(
-                "matchId" to "${it.matchId}",
-                "homeId" to "${it.homeId}",
-                "awayId" to "${it.awayId}"
-            )
-        }
-
-        listMatch.adapter = adapter
-        swipeRefresh.onRefresh {
+            adapter = FavoriteRecycleViewAdapter(favorites) {
+                context?.startActivity<MatchDetailActivity>(
+                    "matchId" to "${it.matchId}",
+                    "homeId" to "${it.homeId}",
+                    "awayId" to "${it.awayId}"
+                )
+            }
+            listMatch.adapter = adapter
             showFavorite()
-        }
+
+        }.view
     }
 
-    override fun onResume() {
-        super.onResume()
-        showFavorite()
-    }
-
-    private fun showFavorite() {
+    override fun showFavorite() {
         favorites.clear()
         context?.database?.use {
             swipeRefresh.isRefreshing = false

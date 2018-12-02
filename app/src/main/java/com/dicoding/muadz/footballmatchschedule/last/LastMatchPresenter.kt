@@ -1,11 +1,12 @@
 package com.dicoding.muadz.footballmatchschedule.last
 
+import com.dicoding.muadz.footballmatchschedule.Matches
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
-import com.dicoding.muadz.footballmatchschedule.Matches
 import com.google.gson.Gson
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LastMatchPresenter(
     private val view : LastMatchContract.View,
@@ -15,16 +16,18 @@ class LastMatchPresenter(
 
     override fun getLastMatch() {
         view.showLoading()
-        doAsync {
-            val data = gson.fromJson(apiRepository
-                .doRequest(SportDBApi.getLastMatches()),
-                Matches::class.java
-            )
+        try {
+            GlobalScope.launch(Dispatchers.Main) {
+                val data = gson.fromJson(apiRepository
+                    .doRequest(SportDBApi.getLastMatches()).await(),
+                    Matches::class.java
+                )
 
-            uiThread {
                 view.hideLoading()
                 view.showLastMatch(data.matches)
             }
+        }catch(e: Exception){
+            view.showErrorPage()
         }
     }
 

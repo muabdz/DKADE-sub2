@@ -1,7 +1,6 @@
 package com.dicoding.muadz.footballmatchschedule.matchdetail
 
 import android.content.Context
-import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -23,10 +22,7 @@ import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.db.classParser
-import org.jetbrains.anko.db.delete
-import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
-import org.jetbrains.anko.design.snackbar
 
 
 class MatchDetailActivity : AppCompatActivity(),
@@ -71,7 +67,7 @@ class MatchDetailActivity : AppCompatActivity(),
         favoriteState()
 
         matchDetailPresenter =
-                MatchDetailPresenter(this, request, gson)
+                MatchDetailPresenter(this, request, gson, database)
         matchDetailPresenter.getMatchDetail(matchId as String?)
         matchDetailPresenter.getTeamBadge(homeId as String?, R.id.ivTeam1)
         matchDetailPresenter.getTeamBadge(awayId as String?, R.id.ivTeam2)
@@ -185,7 +181,20 @@ class MatchDetailActivity : AppCompatActivity(),
             }
             R.id.add_to_favorite -> {
                 if (!progressBar1.isShown) {
-                    if (isFavorite) removeFromFavorite() else addToFavorite()
+                    if (isFavorite) matchDetailPresenter.removeFromFavorite(
+                        matchId,
+                        scrollView
+                    ) else matchDetailPresenter.addToFavorite(
+                        idEvent,
+                        strDate,
+                        idHomeTeam,
+                        idAwayTeam,
+                        strHomeTeam,
+                        strAwayTeam,
+                        intHomeScore,
+                        intAwayScore,
+                        scrollView
+                    )
 
                     isFavorite = !isFavorite
                     setFavorite()
@@ -206,42 +215,7 @@ class MatchDetailActivity : AppCompatActivity(),
         Picasso.get().load(teamBadge).into(ivLogo)
     }
 
-    private fun addToFavorite() {
-        try {
-            database.use {
-                insert(
-                    Favorite.TABLE_FAVORITE,
-                    Favorite.MATCH_ID to idEvent,
-                    Favorite.MATCH_DATE to strDate,
-                    Favorite.HOME_ID to idHomeTeam,
-                    Favorite.AWAY_ID to idAwayTeam,
-                    Favorite.HOME_NAME to strHomeTeam,
-                    Favorite.AWAY_NAME to strAwayTeam,
-                    Favorite.HOME_SCORE to intHomeScore,
-                    Favorite.AWAY_SCORE to intAwayScore
-                )
-            }
-            scrollView.snackbar("Added to favorite").show()
-        } catch (e: SQLiteConstraintException) {
-            scrollView.snackbar(e.localizedMessage).show()
-        }
-    }
-
-    private fun removeFromFavorite() {
-        try {
-            database.use {
-                delete(
-                    Favorite.TABLE_FAVORITE, "(MATCH_ID = {id})",
-                    "id" to matchId
-                )
-            }
-            scrollView.snackbar("Removed from favorite").show()
-        } catch (e: SQLiteConstraintException) {
-            scrollView.snackbar(e.localizedMessage).show()
-        }
-    }
-
-    private fun setFavorite() {
+    override fun setFavorite() {
         if (isFavorite)
             menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_added_to_favorites)
         else

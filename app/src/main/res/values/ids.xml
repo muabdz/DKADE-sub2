@@ -10,4 +10,7 @@
     <item name="tlMain" type="id"/>
     <item name="matchCard" type="id"/>
     <item name="bottom_navigation" type="id"/>
+    <item name="last_match_list" type="id"/>
+    <item name="next_match_list" type="id"/>
+    <item name="tvError" type="id"/>
 </resources>
