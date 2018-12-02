@@ -8,7 +8,6 @@ interface LastMatchContract {
         fun showLoading()
         fun hideLoading()
         fun showLastMatch(data : List<Match>)
-        fun showErrorPage()
     }
 
     interface Presenter {

@@ -11,7 +11,6 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
-import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,12 +35,12 @@ class MainActivityTest {
 
     @Test
     fun testAppBehaviour() {
-            Thread.sleep(8000)
+        Thread.sleep(8000)
         onView(ViewMatchers.withText("Man City"))
             .check(matches(isDisplayed()))
         onView(ViewMatchers.withText("Man City")).perform(click())
 
-            Thread.sleep(8000)
+        Thread.sleep(8000)
         onView(withId(R.id.add_to_favorite))
             .check(matches(isDisplayed()))
         onView(withId(R.id.add_to_favorite)).perform(click())
