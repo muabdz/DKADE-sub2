@@ -1,6 +1,6 @@
 package com.dicoding.muadz.footballmatchschedule.last
 
-import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.modals.Match
 
 interface LastMatchContract {
 

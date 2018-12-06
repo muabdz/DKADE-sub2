@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule
+package com.dicoding.muadz.footballmatchschedule.modals
 
 data class Match(
     val dateEvent: String? = null,

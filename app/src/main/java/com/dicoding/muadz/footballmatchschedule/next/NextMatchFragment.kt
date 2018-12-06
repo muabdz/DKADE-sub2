@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
-import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.modals.Match
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible

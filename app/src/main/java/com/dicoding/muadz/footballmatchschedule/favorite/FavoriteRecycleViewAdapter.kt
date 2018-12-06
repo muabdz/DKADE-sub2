@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.dicoding.muadz.footballmatchschedule.Favorite
+import com.dicoding.muadz.footballmatchschedule.modals.Favorite
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.R.id.*
 import org.jetbrains.anko.*

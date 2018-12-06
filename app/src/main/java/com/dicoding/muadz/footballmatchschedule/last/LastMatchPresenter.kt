@@ -1,6 +1,6 @@
 package com.dicoding.muadz.footballmatchschedule.last
 
-import com.dicoding.muadz.footballmatchschedule.Matches
+import com.dicoding.muadz.footballmatchschedule.modals.Matches
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
 import com.google.gson.Gson

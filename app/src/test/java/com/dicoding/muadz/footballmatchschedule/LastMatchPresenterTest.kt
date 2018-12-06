@@ -3,6 +3,8 @@ package com.dicoding.muadz.footballmatchschedule
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.last.LastMatchContract
 import com.dicoding.muadz.footballmatchschedule.last.LastMatchPresenter
+import com.dicoding.muadz.footballmatchschedule.modals.Match
+import com.dicoding.muadz.footballmatchschedule.modals.Matches
 import com.google.gson.Gson
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

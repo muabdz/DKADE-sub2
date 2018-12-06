@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule
+package com.dicoding.muadz.footballmatchschedule.modals
 
 data class Favorite(val id: Long?,
                     val matchId: String?,

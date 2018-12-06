@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule
+package com.dicoding.muadz.footballmatchschedule.modals
 
 data class Badge(
     val idTeam: String? = null,

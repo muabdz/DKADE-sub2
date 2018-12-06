@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.dicoding.muadz.footballmatchschedule.Favorite
+import com.dicoding.muadz.footballmatchschedule.modals.Favorite
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.matchdetail.MatchDetailActivity
 import org.jetbrains.anko.*
