@@ -13,16 +13,15 @@ class LastMatchPresenter(
     private val apiRepository: ApiRepository,
     private val gson: Gson
 ) : LastMatchContract.Presenter {
-
     override fun getLastMatch() {
         view.showLoading()
         GlobalScope.launch(Dispatchers.Main) {
+
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(SportDBApi.getLastMatches()).await(),
                 Matches::class.java
             )
-
             view.hideLoading()
             view.showLastMatch(data.matches)
         }

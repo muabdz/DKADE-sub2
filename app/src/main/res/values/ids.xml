@@ -13,4 +13,5 @@
     <item name="last_match_list" type="id"/>
     <item name="next_match_list" type="id"/>
     <item name="tvError" type="id"/>
+    <item name="favoritematch_list" type="id"/>
 </resources>
