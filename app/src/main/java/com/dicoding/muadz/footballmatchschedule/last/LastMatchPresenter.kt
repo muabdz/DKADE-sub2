@@ -24,7 +24,7 @@ class LastMatchPresenter(
             )
             view.hideLoading()
             view.showLastMatch(data.matches)
-        }
+        }   
     }
 
 }
