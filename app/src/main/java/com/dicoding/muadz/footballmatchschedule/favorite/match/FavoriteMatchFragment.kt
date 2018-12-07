@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.favorite
+package com.dicoding.muadz.footballmatchschedule.favorite.match
 
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.dicoding.muadz.footballmatchschedule.models.Favorite
+import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.matches.matchdetail.MatchDetailActivity
 import org.jetbrains.anko.*
@@ -23,12 +23,14 @@ import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
 
-    private var favorites: MutableList<Favorite> = mutableListOf()
+    private var favoriteMatches: MutableList<FavoriteMatch> = mutableListOf()
     private lateinit var adapter: FavoriteRecycleViewAdapter
     private lateinit var listMatch: RecyclerView
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private val Context.database: MatchDatabaseOpenHelper
-        get() = MatchDatabaseOpenHelper.getInstance(applicationContext)
+        get() = MatchDatabaseOpenHelper.getInstance(
+            applicationContext
+        )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return UI {
@@ -56,13 +58,14 @@ class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
                 }
             }
 
-            adapter = FavoriteRecycleViewAdapter(favorites) {
-                context?.startActivity<MatchDetailActivity>(
-                    "matchId" to "${it.matchId}",
-                    "homeId" to "${it.homeId}",
-                    "awayId" to "${it.awayId}"
-                )
-            }
+            adapter =
+                    FavoriteRecycleViewAdapter(favoriteMatches) {
+                        context?.startActivity<MatchDetailActivity>(
+                            "matchId" to "${it.matchId}",
+                            "homeId" to "${it.homeId}",
+                            "awayId" to "${it.awayId}"
+                        )
+                    }
             listMatch.adapter = adapter
             showFavorite()
 
@@ -70,12 +73,12 @@ class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
     }
 
     override fun showFavorite() {
-        favorites.clear()
+        favoriteMatches.clear()
         context?.database?.use {
             swipeRefresh.isRefreshing = false
-            val result = select(Favorite.TABLE_FAVORITE)
-            val favorite = result.parseList(classParser<Favorite>())
-            favorites.addAll(favorite)
+            val result = select(FavoriteMatch.TABLE_FAVORITE)
+            val favorite = result.parseList(classParser<FavoriteMatch>())
+            favoriteMatches.addAll(favorite)
             adapter.notifyDataSetChanged()
         }
     }

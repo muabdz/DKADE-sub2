@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.favorite
+package com.dicoding.muadz.footballmatchschedule.favorite.match
 
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
@@ -6,21 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.dicoding.muadz.footballmatchschedule.models.Favorite
+import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.R.id.*
 import org.jetbrains.anko.*
 
-class FavoriteRecycleViewAdapter(private val favorites: List<Favorite>,
-                                 private val listener: (Favorite) -> Unit)
+class FavoriteRecycleViewAdapter(private val favoriteMatches: List<FavoriteMatch>,
+                                 private val listener: (FavoriteMatch) -> Unit)
     : RecyclerView.Adapter<FavoriteViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder(MatchCard().createView(AnkoContext.create(parent.context, parent)))
+        return FavoriteViewHolder(
+            MatchCard().createView(
+                AnkoContext.create(parent.context, parent)
+            )
+        )
     }
-    override fun getItemCount(): Int =favorites.size
+    override fun getItemCount(): Int =favoriteMatches.size
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        holder.bindItem(favorites[position], listener)
+        holder.bindItem(favoriteMatches[position], listener)
     }
 }
 
@@ -94,14 +98,14 @@ class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view){
     private val awayScore: TextView = view.find(tvScore2)
     private val matchCardView : LinearLayout = view.find(matchCard)
 
-    fun bindItem(favorite: Favorite, listener: (Favorite) -> Unit) {
-        matchDate.text = favorite.matchDate
-        homeName.text = favorite.homeName
-        homeScore.text = favorite.homeScore
-        awayName.text = favorite.awayName
-        awayScore.text = favorite.awayScore
+    fun bindItem(favoriteMatch: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
+        matchDate.text = favoriteMatch.matchDate
+        homeName.text = favoriteMatch.homeName
+        homeScore.text = favoriteMatch.homeScore
+        awayName.text = favoriteMatch.awayName
+        awayScore.text = favoriteMatch.awayScore
 
-        matchCardView.setOnClickListener {listener(favorite)}
+        matchCardView.setOnClickListener {listener(favoriteMatch)}
 
     }
 }

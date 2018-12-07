@@ -23,8 +23,8 @@ class MainActivityTest {
     private var tvTeam2 : String? = null
     private var lastMatchList: RecyclerView? = null
     private var isFavorite: Boolean? = null
-    private val notFavorite = "Removed from Favorite"
-    private val favorite = "Added to Favorite"
+    private val notFavorite = "Removed from FavoriteMatch"
+    private val favorite = "Added to FavoriteMatch"
 
     @Rule
     @JvmField

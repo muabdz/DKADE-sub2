@@ -3,11 +3,11 @@ package com.dicoding.muadz.footballmatchschedule.matches.matchdetail
 import android.database.sqlite.SQLiteConstraintException
 import android.widget.ScrollView
 import com.dicoding.muadz.footballmatchschedule.models.Badges
-import com.dicoding.muadz.footballmatchschedule.models.Favorite
+import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.models.Matches
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
-import com.dicoding.muadz.footballmatchschedule.favorite.MatchDatabaseOpenHelper
+import com.dicoding.muadz.footballmatchschedule.favorite.match.MatchDatabaseOpenHelper
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -64,15 +64,15 @@ class MatchDetailPresenter(
         try {
             database.use {
                 insert(
-                    Favorite.TABLE_FAVORITE,
-                    Favorite.MATCH_ID to idEvent,
-                    Favorite.MATCH_DATE to strDate,
-                    Favorite.HOME_ID to idHomeTeam,
-                    Favorite.AWAY_ID to idAwayTeam,
-                    Favorite.HOME_NAME to strHomeTeam,
-                    Favorite.AWAY_NAME to strAwayTeam,
-                    Favorite.HOME_SCORE to intHomeScore,
-                    Favorite.AWAY_SCORE to intAwayScore
+                    FavoriteMatch.TABLE_FAVORITE,
+                    FavoriteMatch.MATCH_ID to idEvent,
+                    FavoriteMatch.MATCH_DATE to strDate,
+                    FavoriteMatch.HOME_ID to idHomeTeam,
+                    FavoriteMatch.AWAY_ID to idAwayTeam,
+                    FavoriteMatch.HOME_NAME to strHomeTeam,
+                    FavoriteMatch.AWAY_NAME to strAwayTeam,
+                    FavoriteMatch.HOME_SCORE to intHomeScore,
+                    FavoriteMatch.AWAY_SCORE to intAwayScore
                 )
             }
             scrollView.snackbar("Added to favorite").show()
@@ -85,7 +85,7 @@ class MatchDetailPresenter(
         try {
             database.use {
                 delete(
-                    Favorite.TABLE_FAVORITE, "(MATCH_ID = {id})",
+                    FavoriteMatch.TABLE_FAVORITE, "(MATCH_ID = {id})",
                     "id" to matchId
                 )
             }

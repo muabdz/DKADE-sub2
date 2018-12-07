@@ -1,14 +1,14 @@
 package com.dicoding.muadz.footballmatchschedule.models
 
-data class Favorite(val id: Long?,
-                    val matchId: String?,
-                    val matchDate: String?,
-                    val homeId: String?,
-                    val awayId: String?,
-                    val homeName: String?,
-                    val awayName: String?,
-                    val homeScore: String?,
-                    val awayScore: String?) {
+data class FavoriteMatch(val id: Long?,
+                         val matchId: String?,
+                         val matchDate: String?,
+                         val homeId: String?,
+                         val awayId: String?,
+                         val homeName: String?,
+                         val awayName: String?,
+                         val homeScore: String?,
+                         val awayScore: String?) {
 
     companion object {
         const val TABLE_FAVORITE: String = "TABLE_FAVORITE"

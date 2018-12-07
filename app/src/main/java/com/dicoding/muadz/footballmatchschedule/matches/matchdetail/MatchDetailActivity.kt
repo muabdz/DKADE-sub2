@@ -11,11 +11,11 @@ import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.models.Badge
-import com.dicoding.muadz.footballmatchschedule.models.Favorite
+import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.models.Match
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
-import com.dicoding.muadz.footballmatchschedule.favorite.MatchDatabaseOpenHelper
+import com.dicoding.muadz.footballmatchschedule.favorite.match.MatchDatabaseOpenHelper
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
 import com.google.gson.Gson
@@ -77,12 +77,12 @@ class MatchDetailActivity : AppCompatActivity(),
 
     private fun favoriteState() {
         database.use {
-            val result = select(Favorite.TABLE_FAVORITE)
+            val result = select(FavoriteMatch.TABLE_FAVORITE)
                 .whereArgs(
                     "(MATCH_ID = {id})",
                     "id" to matchId
                 )
-            val favorite = result.parseList(classParser<Favorite>())
+            val favorite = result.parseList(classParser<FavoriteMatch>())
             if (!favorite.isEmpty()) isFavorite = true
         }
     }
