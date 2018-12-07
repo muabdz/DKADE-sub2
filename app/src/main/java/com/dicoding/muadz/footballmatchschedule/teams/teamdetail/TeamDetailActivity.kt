@@ -17,7 +17,7 @@ import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.R.color.colorPrimaryDark
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
-import com.dicoding.muadz.footballmatchschedule.favorite.TeamDatabaseOpenHelper
+import com.dicoding.muadz.footballmatchschedule.favorite.team.TeamDatabaseOpenHelper
 import com.dicoding.muadz.footballmatchschedule.models.FavoriteTeam
 import com.dicoding.muadz.footballmatchschedule.models.Team
 import com.dicoding.muadz.footballmatchschedule.utils.invisible

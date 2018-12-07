@@ -3,9 +3,9 @@ package com.dicoding.muadz.footballmatchschedule
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dicoding.muadz.footballmatchschedule.R.layout.activity_main
+import com.dicoding.muadz.footballmatchschedule.favorite.FavoriteFragment
 import com.dicoding.muadz.footballmatchschedule.favorite.match.FavoriteMatchFragment
 import com.dicoding.muadz.footballmatchschedule.matches.MatchFragment
-import com.dicoding.muadz.footballmatchschedule.matches.next.NextMatchFragment
 import com.dicoding.muadz.footballmatchschedule.teams.TeamFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(){
                     loadTeamFragment(savedInstanceState)
                 }
                 R.id.favorites ->{
-                    loadFavoriteMatchFragment(savedInstanceState)
+                    loadFavoriteFragment(savedInstanceState)
                 }
             }
             true
@@ -49,12 +49,12 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    private fun loadFavoriteMatchFragment(savedInstanceState: Bundle?) {
+    private fun loadFavoriteFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_container,
-                    FavoriteMatchFragment(), FavoriteMatchFragment::class.java.simpleName)
+                    FavoriteFragment(), FavoriteFragment::class.java.simpleName)
                 .commit()
         }
     }

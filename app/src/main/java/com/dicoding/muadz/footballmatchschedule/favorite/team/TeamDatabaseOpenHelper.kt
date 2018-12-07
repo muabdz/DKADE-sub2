@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.favorite
+package com.dicoding.muadz.footballmatchschedule.favorite.team
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -11,9 +11,10 @@ class TeamDatabaseOpenHelper(ctx: Context): ManagedSQLiteOpenHelper(ctx, "Favori
         private var instance: TeamDatabaseOpenHelper? = null
 
         @Synchronized
-        fun getInstance(ctx: Context): TeamDatabaseOpenHelper{
+        fun getInstance(ctx: Context): TeamDatabaseOpenHelper {
             if (instance == null){
-                instance = TeamDatabaseOpenHelper(ctx.applicationContext)
+                instance =
+                        TeamDatabaseOpenHelper(ctx.applicationContext)
             }
             return instance as TeamDatabaseOpenHelper
         }
