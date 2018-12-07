@@ -22,6 +22,7 @@ class MatchFragment : Fragment(){
     private lateinit var viewPagerMain: ViewPager
     private lateinit var tabLayoutMain: TabLayout
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreate(savedInstanceState)
 
         return UI {
             linearLayout {
@@ -40,7 +41,7 @@ class MatchFragment : Fragment(){
 
             }
 
-            val matchPagerAdapter = MatchPagerAdapter(supportFragmentManager)
+            val matchPagerAdapter = MatchPagerAdapter(childFragmentManager)
             viewPagerMain.adapter = matchPagerAdapter
             tabLayoutMain.setupWithViewPager(viewPagerMain)
         }.view

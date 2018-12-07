@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.dicoding.muadz.footballmatchschedule.R.layout.activity_main
 import com.dicoding.muadz.footballmatchschedule.favorite.FavoriteMatchFragment
 import com.dicoding.muadz.footballmatchschedule.last.LastMatchFragment
+import com.dicoding.muadz.footballmatchschedule.matches.MatchFragment
 import com.dicoding.muadz.footballmatchschedule.next.NextMatchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,10 +16,10 @@ class MainActivity : AppCompatActivity(){
         setContentView(activity_main)
         bottom_navigation.setOnNavigationItemSelectedListener{item ->
             when (item.itemId){
-                R.id.last_matches ->{
-                    loadLastMatchFragment(savedInstanceState)
+                R.id.matches ->{
+                    loadMatchFragment(savedInstanceState)
                 }
-                R.id.next_matches ->{
+                R.id.teams ->{
                     loadNextMatchFragment(savedInstanceState)
                 }
                 R.id.favorites ->{
@@ -27,14 +28,14 @@ class MainActivity : AppCompatActivity(){
             }
             true
         }
-        bottom_navigation.selectedItemId = R.id.last_matches
+        bottom_navigation.selectedItemId = R.id.matches
     }
 
-    private fun loadLastMatchFragment(savedInstanceState: Bundle?) {
+    private fun loadMatchFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_container, LastMatchFragment(), LastMatchFragment::class.java.simpleName)
+                .replace(R.id.main_container, MatchFragment(), MatchFragment::class.java.simpleName)
                 .commit()
         }
     }

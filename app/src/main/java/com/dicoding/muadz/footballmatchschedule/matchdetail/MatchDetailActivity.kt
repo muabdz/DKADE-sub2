@@ -10,9 +10,9 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
-import com.dicoding.muadz.footballmatchschedule.Badge
-import com.dicoding.muadz.footballmatchschedule.Favorite
-import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.models.Badge
+import com.dicoding.muadz.footballmatchschedule.models.Favorite
+import com.dicoding.muadz.footballmatchschedule.models.Match
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.favorite.MatchDatabaseOpenHelper

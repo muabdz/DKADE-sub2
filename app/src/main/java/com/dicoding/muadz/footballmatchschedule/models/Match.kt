@@ -1,8 +1,9 @@
-package com.dicoding.muadz.footballmatchschedule
+package com.dicoding.muadz.footballmatchschedule.models
 
 data class Match(
     val dateEvent: String? = null,
     val idEvent: String? = null,
+    val strTime: String? = null,
     val idHomeTeam: String? = null,
     val idAwayTeam: String? = null,
     val intAwayScore: String? = null,

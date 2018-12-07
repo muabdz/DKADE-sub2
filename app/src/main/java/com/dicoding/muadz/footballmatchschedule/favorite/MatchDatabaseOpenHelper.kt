@@ -2,7 +2,7 @@ package com.dicoding.muadz.footballmatchschedule.favorite
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.dicoding.muadz.footballmatchschedule.Favorite
+import com.dicoding.muadz.footballmatchschedule.models.Favorite
 import org.jetbrains.anko.db.*
 
 class MatchDatabaseOpenHelper(ctx: Context): ManagedSQLiteOpenHelper(ctx, "FavoriteMatch.db", null, 1){
@@ -20,7 +20,8 @@ class MatchDatabaseOpenHelper(ctx: Context): ManagedSQLiteOpenHelper(ctx, "Favor
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.createTable(Favorite.TABLE_FAVORITE, true,
+        db.createTable(
+            Favorite.TABLE_FAVORITE, true,
             Favorite.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
             Favorite.MATCH_ID to TEXT + UNIQUE,
             Favorite.MATCH_DATE to TEXT,

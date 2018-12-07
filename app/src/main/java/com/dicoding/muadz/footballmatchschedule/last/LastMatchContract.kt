@@ -1,16 +1,16 @@
 package com.dicoding.muadz.footballmatchschedule.last
 
-import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.models.Match
 
 interface LastMatchContract {
 
     interface View {
         fun showLoading()
         fun hideLoading()
-        fun showLastMatch(data : List<Match>)
+        fun showLastMatch(data: List<Match>)
     }
 
     interface Presenter {
-        fun getLastMatch()
+        fun getLastMatch(leagueId: String? = "4328")
     }
 }

@@ -1,15 +1,18 @@
 package com.dicoding.muadz.footballmatchschedule.next
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.models.Match
 import com.dicoding.muadz.footballmatchschedule.matchdetail.MatchDetailActivity
 import com.dicoding.muadz.footballmatchschedule.R
 import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NextRecycleViewAdapter(private val matches: List<Match>) : RecyclerView.Adapter<NextRecycleViewAdapter.MatchViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
@@ -34,8 +37,13 @@ class NextRecycleViewAdapter(private val matches: List<Match>) : RecyclerView.Ad
         private val awayScore: TextView = view.find(R.id.tvScore2)
         private val matchCardView : LinearLayout = view.find(R.id.matchCard)
 
+        @SuppressLint("SimpleDateFormat")
         fun bindItem(matches: Match) {
-            matchDate.text = matches.strDate
+            val dateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.getDefault())
+            val tempResult =  dateParser.parse(matches.dateEvent+" "+matches.strTime)
+            val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy - HH:mm")
+            val result =  dateFormatter.format(tempResult)
+            matchDate.text = result.toString()
             homeName.text = matches.strHomeTeam
             homeScore.text = matches.intHomeScore
             awayName.text = matches.strAwayTeam

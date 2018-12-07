@@ -14,4 +14,11 @@
     <string name="vs">vs</string>
     <string name="matches">Matches</string>
     <string name="teams">Teams</string>
+    <array name="league">
+        <item>English Premier League</item>
+        <item>English League Championship</item>
+        <item>German Bundesliga</item>
+        <item>Italian Serie A</item>
+        <item>Spanish La Liga</item>
+    </array>
 </resources>

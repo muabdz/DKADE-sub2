@@ -1,6 +1,6 @@
 package com.dicoding.muadz.footballmatchschedule.next
 
-import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.models.Match
 
 interface NextMatchContract {
 
@@ -12,6 +12,6 @@ interface NextMatchContract {
     }
 
     interface Presenter {
-        fun getNextMatch()
+        fun getNextMatch(leagueId: String? = "4328")
     }
 }

@@ -2,9 +2,9 @@ package com.dicoding.muadz.footballmatchschedule.matchdetail
 
 import android.database.sqlite.SQLiteConstraintException
 import android.widget.ScrollView
-import com.dicoding.muadz.footballmatchschedule.Badges
-import com.dicoding.muadz.footballmatchschedule.Favorite
-import com.dicoding.muadz.footballmatchschedule.Matches
+import com.dicoding.muadz.footballmatchschedule.models.Badges
+import com.dicoding.muadz.footballmatchschedule.models.Favorite
+import com.dicoding.muadz.footballmatchschedule.models.Matches
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
 import com.dicoding.muadz.footballmatchschedule.favorite.MatchDatabaseOpenHelper

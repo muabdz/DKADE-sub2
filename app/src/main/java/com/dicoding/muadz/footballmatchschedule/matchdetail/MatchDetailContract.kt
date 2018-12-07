@@ -1,8 +1,8 @@
 package com.dicoding.muadz.footballmatchschedule.matchdetail
 
 import android.widget.ScrollView
-import com.dicoding.muadz.footballmatchschedule.Badge
-import com.dicoding.muadz.footballmatchschedule.Match
+import com.dicoding.muadz.footballmatchschedule.models.Badge
+import com.dicoding.muadz.footballmatchschedule.models.Match
 
 interface MatchDetailContract {
 

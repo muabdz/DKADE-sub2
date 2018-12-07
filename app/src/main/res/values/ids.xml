@@ -16,4 +16,5 @@
     <item name="favoritematch_list" type="id"/>
     <item name="vpMatch" type="id"/>
     <item name="tlMatch" type="id"/>
+    <item name="spinner" type="id"/>
 </resources>
