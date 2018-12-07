@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.next
+package com.dicoding.muadz.footballmatchschedule.matches.last
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.models.Match
-import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
 import com.google.gson.Gson
@@ -21,25 +21,25 @@ import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class NextMatchFragment : Fragment(), NextMatchContract.View {
+class LastMatchFragment : Fragment(), LastMatchContract.View {
 
     private lateinit var listMatch: RecyclerView
     private lateinit var spinner: Spinner
     private lateinit var progressBar: ProgressBar
     private var matches: MutableList<Match> = mutableListOf()
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var nextMatchPresenter: NextMatchPresenter
-    private lateinit var adapter: NextRecycleViewAdapter
+    private lateinit var lastMatchPresenter: LastMatchPresenter
+    private lateinit var adapter: LastRecycleViewAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val request = ApiRepository()
         val gson = Gson()
-        nextMatchPresenter = NextMatchPresenter(this, request, gson)
+        lastMatchPresenter = LastMatchPresenter(this, request, gson)
 
         return UI {
             linearLayout {
-                lparams (width = matchParent, height = matchParent)
+                lparams(width = matchParent, height = matchParent)
                 orientation = LinearLayout.VERTICAL
                 topPadding = dip(16)
                 leftPadding = dip(16)
@@ -51,17 +51,17 @@ class NextMatchFragment : Fragment(), NextMatchContract.View {
 
                 swipeRefresh = swipeRefreshLayout {
 
-                    relativeLayout{
-                        lparams (width = matchParent, height = wrapContent)
+                    relativeLayout {
+                        lparams(width = matchParent, height = wrapContent)
 
                         listMatch = recyclerView {
-                            id = R.id.next_match_list
-                            lparams (width = matchParent, height = wrapContent)
+                            id = R.id.last_match_list
+                            lparams(width = matchParent, height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
                         }
 
                         progressBar = progressBar {
-                        }.lparams{
+                        }.lparams {
                             centerHorizontally()
                         }
                     }
@@ -71,12 +71,13 @@ class NextMatchFragment : Fragment(), NextMatchContract.View {
                     override fun onNothingSelected(p0: AdapterView<*>?) {}
 
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                        nextMatchPresenter.getNextMatch(nextMatchParams())
+                        lastMatchPresenter.getLastMatch(lastMatchParams())
                     }
 
                 }
+
                 swipeRefresh.onRefresh {
-                    nextMatchPresenter.getNextMatch()
+                    lastMatchPresenter.getLastMatch(lastMatchParams())
                 }
             }
             val spinnerItems = resources.getStringArray(R.array.league)
@@ -86,9 +87,9 @@ class NextMatchFragment : Fragment(), NextMatchContract.View {
             )
             spinner.adapter = spinnerAdapter
 
-            adapter = NextRecycleViewAdapter(matches)
+            adapter = LastRecycleViewAdapter(matches)
             listMatch.adapter = adapter
-            nextMatchPresenter.getNextMatch()
+            lastMatchPresenter.getLastMatch()
 
         }.view
     }
@@ -101,14 +102,14 @@ class NextMatchFragment : Fragment(), NextMatchContract.View {
         progressBar.invisible()
     }
 
-    override fun showNextMatch(data: List<Match>) {
+    override fun showLastMatch(data: List<Match>) {
         swipeRefresh.isRefreshing = false
         matches.clear()
         matches.addAll(data)
         adapter.notifyDataSetChanged()
     }
 
-    fun nextMatchParams(): String? {
+    fun lastMatchParams(): String? {
         return when (spinner.selectedItem.toString()) {
             "English Premier League" -> "4328"
             "English League Championship" -> "4329"

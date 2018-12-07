@@ -3,8 +3,8 @@ package com.dicoding.muadz.footballmatchschedule.matches
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.dicoding.muadz.footballmatchschedule.last.LastMatchFragment
-import com.dicoding.muadz.footballmatchschedule.next.NextMatchFragment
+import com.dicoding.muadz.footballmatchschedule.matches.last.LastMatchFragment
+import com.dicoding.muadz.footballmatchschedule.matches.next.NextMatchFragment
 
 class MatchPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {

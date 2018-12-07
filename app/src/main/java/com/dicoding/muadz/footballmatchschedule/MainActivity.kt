@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dicoding.muadz.footballmatchschedule.R.layout.activity_main
 import com.dicoding.muadz.footballmatchschedule.favorite.FavoriteMatchFragment
-import com.dicoding.muadz.footballmatchschedule.last.LastMatchFragment
 import com.dicoding.muadz.footballmatchschedule.matches.MatchFragment
-import com.dicoding.muadz.footballmatchschedule.next.NextMatchFragment
+import com.dicoding.muadz.footballmatchschedule.matches.next.NextMatchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){

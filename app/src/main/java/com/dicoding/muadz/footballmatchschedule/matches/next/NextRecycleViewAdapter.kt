@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.next
+package com.dicoding.muadz.footballmatchschedule.matches.next
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.models.Match
-import com.dicoding.muadz.footballmatchschedule.matchdetail.MatchDetailActivity
+import com.dicoding.muadz.footballmatchschedule.matches.matchdetail.MatchDetailActivity
 import com.dicoding.muadz.footballmatchschedule.R
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat

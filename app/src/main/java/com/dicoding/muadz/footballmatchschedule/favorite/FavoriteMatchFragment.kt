@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.dicoding.muadz.footballmatchschedule.models.Favorite
 import com.dicoding.muadz.footballmatchschedule.R
-import com.dicoding.muadz.footballmatchschedule.matchdetail.MatchDetailActivity
+import com.dicoding.muadz.footballmatchschedule.matches.matchdetail.MatchDetailActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select

@@ -1,8 +1,8 @@
 package com.dicoding.muadz.footballmatchschedule
 
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
-import com.dicoding.muadz.footballmatchschedule.last.LastMatchContract
-import com.dicoding.muadz.footballmatchschedule.last.LastMatchPresenter
+import com.dicoding.muadz.footballmatchschedule.matches.last.LastMatchContract
+import com.dicoding.muadz.footballmatchschedule.matches.last.LastMatchPresenter
 import com.dicoding.muadz.footballmatchschedule.models.Match
 import com.dicoding.muadz.footballmatchschedule.models.Matches
 import com.google.gson.Gson

@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.last
+package com.dicoding.muadz.footballmatchschedule.matches.last
 
 import com.dicoding.muadz.footballmatchschedule.models.Match
 

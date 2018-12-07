@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".matchdetail.MatchDetailActivity">
+        <activity android:name="com.dicoding.muadz.footballmatchschedule.matches.matchdetail.MatchDetailActivity">
         </activity>
     </application>
 
