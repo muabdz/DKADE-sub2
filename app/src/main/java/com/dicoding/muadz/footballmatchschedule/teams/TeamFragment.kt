@@ -43,7 +43,7 @@ class TeamFragment: Fragment(), AnkoComponent<Context>, TeamContract.View {
         spinner.adapter = spinnerAdapter
 
         adapter = TeamAdapter(teams){
-            context?.startActivity<TeamDetailActivity>("id" to "${it.teamId}")
+            context?.startActivity<TeamDetailActivity>("teamId" to "${it.teamId}")
         }
         listTeam.adapter = adapter
 

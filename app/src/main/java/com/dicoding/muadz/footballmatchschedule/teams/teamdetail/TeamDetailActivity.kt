@@ -4,7 +4,9 @@ import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewPager
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
@@ -15,7 +17,6 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.R
-import com.dicoding.muadz.footballmatchschedule.R.color.colorPrimaryDark
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.favorite.team.TeamDatabaseOpenHelper
 import com.dicoding.muadz.footballmatchschedule.models.FavoriteTeam
@@ -30,21 +31,25 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.design.tabLayout
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import org.jetbrains.anko.support.v4.viewPager
 
 class TeamDetailActivity: AppCompatActivity(), TeamDetailContract.View {
 
+    private lateinit var viewPagerOverview: ViewPager
+    private lateinit var tabLayoutOverview: TabLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var teamBadge: ImageView
     private lateinit var teamName: TextView
     private lateinit var teamFormedYear: TextView
     private lateinit var teamStadium: TextView
-    private lateinit var teamDescription: TextView
+//    private lateinit var teamDescription: TextView
     private lateinit var presenter: TeamDetailPresenter
     private lateinit var teams: Team
-    private lateinit var id: String
+    private lateinit var teamId: String
     private var menuItem: Menu? = null
     private var isFavorite: Boolean = false
     private val Context.database: TeamDatabaseOpenHelper
@@ -57,7 +62,8 @@ class TeamDetailActivity: AppCompatActivity(), TeamDetailContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val intent = intent
-        id = intent.getStringExtra("id")
+        teamId = intent.getStringExtra("teamId")
+        TeamOverviewFragment.newInstance(teamId)
 
         linearLayout {
             lparams(width = matchParent, height = wrapContent)
@@ -74,35 +80,50 @@ class TeamDetailActivity: AppCompatActivity(), TeamDetailContract.View {
                 scrollView {
                     isVerticalScrollBarEnabled = false
                     relativeLayout {
+                        backgroundColorResource =R.color.colorPrimary
                         lparams(width = matchParent, height = wrapContent)
 
                         linearLayout {
                             lparams(width = matchParent, height = wrapContent)
 
-                            padding = dip(10)
                             orientation = LinearLayout.VERTICAL
                             gravity = Gravity.CENTER_HORIZONTAL
 
-                            teamBadge = imageView {  }.lparams(height = dip(75))
+                            teamBadge = imageView {padding = dip(10)}.lparams(height = dip(100))
 
                             teamName = textView {
                                 this.gravity = Gravity.CENTER
                                 textSize = 20f
-                                textColor = ContextCompat.getColor(context, R.color.colorAccent)
+                                textColor = Color.WHITE
                             }.lparams { topMargin = dip(5) }
 
                             teamFormedYear = textView{
                                 this.gravity = Gravity.CENTER
+                                textColor = Color.LTGRAY
                             }
 
                             teamStadium = textView {
                                 this.gravity = Gravity.CENTER
-                                textColor = ContextCompat.getColor(context, colorPrimaryDark)
+                                textSize = 18f
+                                textColor = Color.LTGRAY
                             }
 
-                            teamDescription = textView().lparams{
-                                topMargin = dip(20)
+                            tabLayoutOverview = tabLayout {
+                                id = R.id.tl_team
                             }
+
+                            viewPagerOverview = viewPager {
+                                id = R.id.vp_team
+
+                            }.lparams(width = matchParent, height = matchParent)
+
+//                            teamDescription = textView().lparams{
+//                                topMargin = dip(20)
+//                            }
+                            val teamDetailPagerAdapter = TeamDetailPagerAdapter(supportFragmentManager)
+                            viewPagerOverview.adapter = teamDetailPagerAdapter
+                            tabLayoutOverview.setupWithViewPager(viewPagerOverview)
+                            tabLayoutOverview.setTabTextColors(Color.LTGRAY, Color.WHITE)
                         }
                         progressBar = progressBar {
 
@@ -118,17 +139,17 @@ class TeamDetailActivity: AppCompatActivity(), TeamDetailContract.View {
         val request = ApiRepository()
         val gson = Gson()
         presenter = TeamDetailPresenter(this, request, gson)
-        presenter.getTeamDetail(id)
+        presenter.getTeamDetail(teamId)
         swipeRefresh.onRefresh {
-            presenter.getTeamDetail(id)
+            presenter.getTeamDetail(teamId)
         }
     }
 
     private fun favoriteState(){
         database.use{
             val result = select(FavoriteTeam.TABLE_FAVORITE)
-                .whereArgs("(TEAM_ID = {id})",
-                    "id" to id)
+                .whereArgs("(TEAM_ID = {teamId})",
+                    "teamId" to teamId)
             val favorite = result.parseList(classParser<FavoriteTeam>())
             if (!favorite.isEmpty()) isFavorite = true
         }
@@ -151,7 +172,7 @@ class TeamDetailActivity: AppCompatActivity(), TeamDetailContract.View {
         swipeRefresh.isRefreshing = false
         Picasso.get().load(data[0].teamBadge).into(teamBadge)
         teamName.text = data[0].teamName
-        teamDescription.text = data[0].teamDescription
+//        teamDescription.text = data[0].teamDescription
         teamFormedYear.text = data[0].teamFormedYear
         teamStadium.text = data[0].teamStadium
     }
@@ -197,8 +218,8 @@ class TeamDetailActivity: AppCompatActivity(), TeamDetailContract.View {
         try {
             database.use{
                 delete(
-                    FavoriteTeam.TABLE_FAVORITE, "(TEAM_ID = {id})",
-                    "id" to id)
+                    FavoriteTeam.TABLE_FAVORITE, "(TEAM_ID = {teamId})",
+                    "teamId" to teamId)
             }
             swipeRefresh.snackbar("Removed from favorite").show()
         }catch (e: SQLiteConstraintException){

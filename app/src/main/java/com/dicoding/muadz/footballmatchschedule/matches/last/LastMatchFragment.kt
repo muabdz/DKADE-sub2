@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
+import com.dicoding.muadz.footballmatchschedule.matches.MatchRecycleViewAdapter
 import com.dicoding.muadz.footballmatchschedule.models.Match
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
@@ -29,7 +30,7 @@ class LastMatchFragment : Fragment(), LastMatchContract.View {
     private var matches: MutableList<Match> = mutableListOf()
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var lastMatchPresenter: LastMatchPresenter
-    private lateinit var adapter: LastRecycleViewAdapter
+    private lateinit var adapter: MatchRecycleViewAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -87,7 +88,7 @@ class LastMatchFragment : Fragment(), LastMatchContract.View {
             )
             spinner.adapter = spinnerAdapter
 
-            adapter = LastRecycleViewAdapter(matches)
+            adapter = MatchRecycleViewAdapter(matches)
             listMatch.adapter = adapter
             lastMatchPresenter.getLastMatch()
 
