@@ -10,12 +10,12 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
-import com.dicoding.muadz.footballmatchschedule.models.Badge
 import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.models.Match
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.favorite.match.MatchDatabaseOpenHelper
+import com.dicoding.muadz.footballmatchschedule.models.Team
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
 import com.google.gson.Gson
@@ -43,7 +43,7 @@ class MatchDetailActivity : AppCompatActivity(),
     private var intHomeScore: String? = null
     private var intAwayScore: String? = null
     private var matches: MutableList<Match> = mutableListOf()
-    private var badges: MutableList<Badge> = mutableListOf()
+    private var teams: MutableList<Team> = mutableListOf()
     private var menuItem: Menu? = null
     private var isFavorite: Boolean = false
     private val Context.database: MatchDatabaseOpenHelper
@@ -205,12 +205,12 @@ class MatchDetailActivity : AppCompatActivity(),
         }
     }
 
-    override fun showTeamBadge(logo: List<Badge>, id: Int) {
-        badges.clear()
-        badges.addAll(logo)
+    override fun showTeamBadge(logo: List<Team>, id: Int) {
+        teams.clear()
+        teams.addAll(logo)
 
         val ivLogo: ImageView = findViewById(id)
-        val teamBadge: String? = badges.first().strTeamBadge
+        val teamBadge: String? = teams.first().teamBadge
 
         Picasso.get().load(teamBadge).into(ivLogo)
     }

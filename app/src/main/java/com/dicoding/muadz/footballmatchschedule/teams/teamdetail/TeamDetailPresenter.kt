@@ -2,7 +2,7 @@ package com.dicoding.muadz.footballmatchschedule.teams.teamdetail
 
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
-import com.dicoding.muadz.footballmatchschedule.models.TeamResponse
+import com.dicoding.muadz.footballmatchschedule.models.Teams
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -20,7 +20,7 @@ class TeamDetailPresenter(
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(SportDBApi.getTeamDetail(teamId)).await(),
-                TeamResponse::class.java
+                Teams::class.java
             )
             view.hideLoading()
             view.showTeamDetail(data.teams)

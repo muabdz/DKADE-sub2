@@ -1,8 +1,8 @@
 package com.dicoding.muadz.footballmatchschedule.matches.matchdetail
 
 import android.widget.ScrollView
-import com.dicoding.muadz.footballmatchschedule.models.Badge
 import com.dicoding.muadz.footballmatchschedule.models.Match
+import com.dicoding.muadz.footballmatchschedule.models.Team
 
 interface MatchDetailContract {
 
@@ -10,7 +10,7 @@ interface MatchDetailContract {
         fun showLoading()
         fun hideLoading()
         fun showMatchDetail(data: List<Match>)
-        fun showTeamBadge(logo: List<Badge>, id: Int)
+        fun showTeamBadge(logo: List<Team>, id: Int)
         fun setFavorite()
     }
 

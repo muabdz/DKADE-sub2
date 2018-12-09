@@ -2,12 +2,12 @@ package com.dicoding.muadz.footballmatchschedule.matches.matchdetail
 
 import android.database.sqlite.SQLiteConstraintException
 import android.widget.ScrollView
-import com.dicoding.muadz.footballmatchschedule.models.Badges
 import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.models.Matches
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
 import com.dicoding.muadz.footballmatchschedule.favorite.match.MatchDatabaseOpenHelper
+import com.dicoding.muadz.footballmatchschedule.models.Teams
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -42,11 +42,11 @@ class MatchDetailPresenter(
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(SportDBApi.getTeamBadge(TeamId)).await(),
-                Badges::class.java
+                Teams::class.java
             )
 
                 view.hideLoading()
-                view.showTeamBadge(data.badges, id)
+                view.showTeamBadge(data.teams, id)
         }
     }
 

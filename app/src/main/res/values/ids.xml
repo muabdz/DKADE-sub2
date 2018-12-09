@@ -24,4 +24,8 @@
     <item name="vpFavorite" type="id"/>
     <item name="tl_team" type="id"/>
     <item name="vp_team" type="id"/>
+    <item name="player_image" type="id"/>
+    <item name="player_name" type="id"/>
+    <item name="player_pos" type="id"/>
+    <item name="list_player" type="id"/>
 </resources>
