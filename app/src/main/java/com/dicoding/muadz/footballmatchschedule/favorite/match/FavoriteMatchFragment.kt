@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.matches.matchdetail.MatchDetailActivity
@@ -26,6 +27,7 @@ class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
     private var favoriteMatches: MutableList<FavoriteMatch> = mutableListOf()
     private lateinit var adapter: FavoriteRecycleViewAdapter
     private lateinit var listMatch: RecyclerView
+    private lateinit var noFavorite: TextView
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private val Context.database: MatchDatabaseOpenHelper
         get() = MatchDatabaseOpenHelper.getInstance(
@@ -50,6 +52,15 @@ class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
                             id = R.id.favoritematch_list
                             lparams(width = matchParent, height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
+                        }
+                        noFavorite = textView {
+                            text = context.getString(R.string.empty_match)
+                            textSize = 20f
+                            padding = dip(50)
+                            visibility = View.INVISIBLE
+                            textAlignment = View.TEXT_ALIGNMENT_CENTER
+                        }.lparams{
+                            centerHorizontally()
                         }
                     }
                 }
@@ -78,7 +89,11 @@ class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
             swipeRefresh.isRefreshing = false
             val result = select(FavoriteMatch.TABLE_FAVORITE)
             val favorite = result.parseList(classParser<FavoriteMatch>())
-            favoriteMatches.addAll(favorite)
+            if (favorite.isEmpty()){
+                noFavorite.visibility = View.VISIBLE
+            }else{
+                favoriteMatches.addAll(favorite)
+            }
             adapter.notifyDataSetChanged()
         }
     }

@@ -10,6 +10,8 @@ import com.dicoding.muadz.footballmatchschedule.models.FavoriteMatch
 import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.R.id.*
 import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FavoriteRecycleViewAdapter(private val favoriteMatches: List<FavoriteMatch>,
                                  private val listener: (FavoriteMatch) -> Unit)
@@ -99,6 +101,11 @@ class FavoriteViewHolder(view: View) : RecyclerView.ViewHolder(view){
     private val matchCardView : LinearLayout = view.find(matchCard)
 
     fun bindItem(favoriteMatch: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
+//        val dateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.getDefault())
+//        val tempResult =  dateParser.parse("$strDate $strTime")
+//        val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy - HH:mm")
+//
+//        val result = dateFormatter.format(tempResult)
         matchDate.text = favoriteMatch.matchDate
         homeName.text = favoriteMatch.homeName
         homeScore.text = favoriteMatch.homeScore

@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.dicoding.muadz.footballmatchschedule.R
 import com.dicoding.muadz.footballmatchschedule.R.color.colorAccent
 import com.dicoding.muadz.footballmatchschedule.models.FavoriteTeam
 import com.dicoding.muadz.footballmatchschedule.teams.teamdetail.TeamDetailActivity
@@ -24,6 +26,7 @@ class FavoriteTeamFragment : Fragment(), AnkoComponent<Context> {
     private var favorites: MutableList<FavoriteTeam> = mutableListOf()
     private lateinit var adapter: FavoriteTeamAdapter
     private lateinit var listTeam: RecyclerView
+    private lateinit var noFavorite: TextView
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private val Context.database: TeamDatabaseOpenHelper
         get() = TeamDatabaseOpenHelper.getInstance(applicationContext)
@@ -46,10 +49,23 @@ class FavoriteTeamFragment : Fragment(), AnkoComponent<Context> {
                     android.R.color.holo_orange_light,
                     android.R.color.holo_red_light
                 )
-
-                listTeam = recyclerView {
+                relativeLayout {
                     lparams(width = matchParent, height = wrapContent)
-                    layoutManager = LinearLayoutManager(ctx)
+
+                    listTeam = recyclerView {
+                        lparams(width = matchParent, height = wrapContent)
+                        layoutManager = LinearLayoutManager(ctx)
+                    }
+
+                    noFavorite = textView {
+                        text = context.getString(R.string.empty_team)
+                        textSize = 20f
+                        padding = dip(50)
+                        visibility = View.INVISIBLE
+                        textAlignment = View.TEXT_ALIGNMENT_CENTER
+                    }.lparams {
+                        centerHorizontally()
+                    }
                 }
             }
         }
@@ -59,7 +75,11 @@ class FavoriteTeamFragment : Fragment(), AnkoComponent<Context> {
         super.onActivityCreated(savedInstanceState)
 
         adapter = FavoriteTeamAdapter(favorites) {
-            context?.startActivity<TeamDetailActivity>("teamId" to "${it.teamId}")
+            context?.startActivity<TeamDetailActivity>(
+                "teamId" to "${it.teamId}",
+                "teamName" to "${it.teamName}",
+                "teamBadge" to "${it.teamBadge}"
+            )
         }
 
         listTeam.adapter = adapter
@@ -79,7 +99,11 @@ class FavoriteTeamFragment : Fragment(), AnkoComponent<Context> {
             swipeRefresh.isRefreshing = false
             val result = select(FavoriteTeam.TABLE_FAVORITE)
             val favorite = result.parseList(classParser<FavoriteTeam>())
-            favorites.addAll(favorite)
+            if (favorite.isEmpty()) {
+                noFavorite.visibility = View.VISIBLE
+            } else {
+                favorites.addAll(favorite)
+            }
             adapter.notifyDataSetChanged()
         }
     }

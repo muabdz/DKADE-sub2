@@ -24,11 +24,11 @@ import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class PlayerFragment: Fragment(), AnkoComponent<Context>, PlayerContract.View {
+class PlayerFragment : Fragment(), AnkoComponent<Context>, PlayerContract.View {
 
     private lateinit var listPlayer: RecyclerView
     private lateinit var progressBar: ProgressBar
-//    private lateinit var swipeRefresh: SwipeRefreshLayout
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     private var players: MutableList<Player> = mutableListOf()
     private lateinit var presenter: PlayerPresenter
     private lateinit var adapter: PlayerAdapter
@@ -42,7 +42,7 @@ class PlayerFragment: Fragment(), AnkoComponent<Context>, PlayerContract.View {
         val teamArgs = arguments
         teamId = teamArgs?.getString("teamId").toString()
 
-        presenter.getPlayerList(teamId)
+//        presenter.getPlayerList(teamId)
 
     }
 
@@ -100,44 +100,45 @@ class PlayerFragment: Fragment(), AnkoComponent<Context>, PlayerContract.View {
 
     override fun createView(ui: AnkoContext<Context>): View = with(ui) {
         linearLayout {
-            lparams (width = matchParent, height = wrapContent)
+            lparams(width = matchParent, height = wrapContent)
             orientation = LinearLayout.VERTICAL
             topPadding = dip(16)
             leftPadding = dip(16)
             rightPadding = dip(16)
 
-//            swipeRefresh = swipeRefreshLayout {
-//                setColorSchemeResources(
-//                    R.color.colorAccent,
-//                    android.R.color.holo_green_light,
-//                    android.R.color.holo_orange_light,
-//                    android.R.color.holo_red_light)
+            swipeRefresh = swipeRefreshLayout {
+                setColorSchemeResources(
+                    R.color.colorAccent,
+                    android.R.color.holo_green_light,
+                    android.R.color.holo_orange_light,
+                    android.R.color.holo_red_light
+                )
 
-//                relativeLayout{
-//                    lparams (width = matchParent, height = matchParent)
-                    backgroundColor = Color.BLUE
+                relativeLayout {
+                    lparams(width = matchParent, height = matchParent)
 
                     listPlayer = recyclerView {
                         id = R.id.list_player
-                        lparams (width = matchParent, height = wrapContent)
+                        lparams(width = matchParent, height = wrapContent)
                         layoutManager = LinearLayoutManager(ctx)
                     }
 
-//                    progressBar = progressBar {
-//                    }.lparams{
-//                        centerHorizontally()
-//                    }
-//                }
-//            }
+                    progressBar = progressBar {
+                    }.lparams {
+                        centerHorizontally()
+                    }
+                }
+            }
 
-            adapter = PlayerAdapter(players){
-                //            context?.startActivity<PlayerDetailActivity>("teamId" to "${it.teamId}")
-                context?.startActivity<PlayerDetailActivity>()
+            adapter = PlayerAdapter(players) {
+                context?.startActivity<PlayerDetailActivity>("teamId" to teamId)
+//                context?.startActivity<PlayerDetailActivity>()
             }
             listPlayer.adapter = adapter
-//        swipeRefresh.onRefresh {
-//            presenter.getPlayerList(teamId)
-//        }
+            presenter.getPlayerList(teamId)
+            swipeRefresh.onRefresh {
+                presenter.getPlayerList(teamId)
+            }
         }
     }
 

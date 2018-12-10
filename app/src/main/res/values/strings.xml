@@ -16,6 +16,8 @@
     <string name="teams">Teams</string>
     <string name="search_hint">Search team..</string>
     <string name="search">Search</string>
+    <string name="empty_match">Empty favorite match.</string>
+    <string name="empty_team">Empty favorite team.</string>
     <array name="league">
         <item>English Premier League</item>
         <item>English League Championship</item>

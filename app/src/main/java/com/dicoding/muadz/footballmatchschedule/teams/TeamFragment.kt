@@ -48,10 +48,10 @@ class TeamFragment : Fragment(), AnkoComponent<Context>, TeamContract.View {
             context?.startActivity<TeamDetailActivity>(
                 "teamId" to "${it.teamId}",
                 "teamName" to "${it.teamName}",
-                "teamBadge" to "${it.teamBadge}",
-                "teamFormedYear" to "${it.teamFormedYear}",
-                "teamStadium" to "${it.teamStadium}",
-                "teamDescription" to "${it.teamDescription}"
+                "teamBadge" to "${it.teamBadge}"
+//                "teamFormedYear" to "${it.teamFormedYear}",
+//                "teamStadium" to "${it.teamStadium}",
+//                "teamDescription" to "${it.teamDescription}"
             )
         }
         listTeam.adapter = adapter

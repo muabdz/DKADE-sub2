@@ -36,7 +36,11 @@ class PlayerViewHolder(view: View) : RecyclerView.ViewHolder(view){
     private val playerPos: TextView = view.find(R.id.player_pos)
 
     fun bindItem(players: Player, listener: (Player) -> Unit) {
-        Picasso.get().load(players.playerImage).into(playerImage)
+        when(players.playerImage){
+            null -> playerImage.setImageResource(R.drawable.ic_no_player)
+            else -> Picasso.get().load(players.playerImage).into(playerImage)
+        }
+//        Picasso.get().load(players.playerImage).into(playerImage)
         playerName.text = players.playerName
         playerPos.text = players.playerPos
         itemView.setOnClickListener { listener(players) }
@@ -48,7 +52,7 @@ class PlayerUI : AnkoComponent<ViewGroup> {
         return with(ui) {
             linearLayout {
                 lparams(width = matchParent, height = wrapContent)
-                padding = dip(16)
+                padding = dip(10)
                 orientation = LinearLayout.HORIZONTAL
 
                 imageView {
@@ -60,10 +64,12 @@ class PlayerUI : AnkoComponent<ViewGroup> {
 
                 textView {
                     id = R.id.player_name
-                    textSize = 16f
+                    textSize = 14f
                     textAlignment = View.TEXT_ALIGNMENT_TEXT_START
                 }.lparams{
-                    margin = dip(15)
+                    width = 0
+                    weight = 3f
+                    margin = dip(10)
                 }
 
                 textView {
@@ -71,7 +77,9 @@ class PlayerUI : AnkoComponent<ViewGroup> {
                     textSize = 12f
                     textAlignment = View.TEXT_ALIGNMENT_TEXT_END
                 }.lparams{
-                    margin = dip(15)
+                    width = 0
+                    weight = 1f
+                    margin = dip(10)
                 }
 
             }

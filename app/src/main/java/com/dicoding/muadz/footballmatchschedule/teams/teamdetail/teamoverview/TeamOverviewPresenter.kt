@@ -1,4 +1,4 @@
-package com.dicoding.muadz.footballmatchschedule.teams.teamdetail
+package com.dicoding.muadz.footballmatchschedule.teams.teamdetail.teamoverview
 
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
@@ -8,11 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class TeamDetailPresenter(
-    private val view: TeamDetailContract.View,
+class TeamOverviewPresenter(
+    private val view: TeamOverviewContract.View,
     private val apiRepository: ApiRepository,
     private val gson: Gson
-): TeamDetailContract.Presenter {
+): TeamOverviewContract.Presenter {
 
     override fun getTeamDetail(teamId: String) {
         view.showLoading()

@@ -1,8 +1,8 @@
-package com.dicoding.muadz.footballmatchschedule.teams.teamdetail
+package com.dicoding.muadz.footballmatchschedule.teams.teamdetail.teamoverview
 
 import com.dicoding.muadz.footballmatchschedule.models.Team
 
-interface TeamDetailContract{
+interface TeamOverviewContract{
 
     interface View{
         fun showLoading()

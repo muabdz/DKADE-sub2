@@ -49,6 +49,7 @@ class MatchDetailActivity : AppCompatActivity(),
     private var teams: MutableList<Team> = mutableListOf()
     private var menuItem: Menu? = null
     private var isFavorite: Boolean = false
+    private var resultString: String? = null
     private val Context.database: MatchDatabaseOpenHelper
         get() = MatchDatabaseOpenHelper.getInstance(applicationContext)
 
@@ -149,12 +150,13 @@ class MatchDetailActivity : AppCompatActivity(),
         val strAwayLineupSubstitutes: String? = matches.first().strAwayLineupSubstitutes
 
         val dateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.getDefault())
-        val tempResult =  dateParser.parse("$strDate $strTime")
+        val tempResult = dateParser.parse("$strDate $strTime")
         val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy - HH:mm")
 
         val result = dateFormatter.format(tempResult)
+        resultString = result.toString()
 
-        matchDate.text = result.toString()
+        matchDate.text = resultString
         homeName.text = strHomeTeam
         homeScore.text = intHomeScore
         awayName.text = strAwayTeam
@@ -196,7 +198,7 @@ class MatchDetailActivity : AppCompatActivity(),
                         scrollView
                     ) else matchDetailPresenter.addToFavorite(
                         idEvent,
-                        strDate,
+                        resultString,
                         idHomeTeam,
                         idAwayTeam,
                         strHomeTeam,
