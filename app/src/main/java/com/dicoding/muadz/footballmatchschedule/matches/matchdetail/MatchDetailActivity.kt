@@ -23,6 +23,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_match_detail.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MatchDetailActivity : AppCompatActivity(),
@@ -36,6 +38,7 @@ class MatchDetailActivity : AppCompatActivity(),
     private lateinit var awayId: String
     private var idEvent: String? = null
     private var strDate: String? = null
+    private var strTime: String? = null
     private var idHomeTeam: String? = null
     private var idAwayTeam: String? = null
     private var strHomeTeam: String? = null
@@ -122,7 +125,8 @@ class MatchDetailActivity : AppCompatActivity(),
         val awaySub: TextView = findViewById(R.id.tvSubtitutes2)
 
         idEvent = matches.first().idEvent
-        strDate = matches.first().strDate
+        strDate = matches.first().dateEvent
+        strTime = matches.first().strTime
         idHomeTeam = matches.first().idHomeTeam
         strHomeTeam = matches.first().strHomeTeam
         intHomeScore = matches.first().intHomeScore
@@ -144,7 +148,13 @@ class MatchDetailActivity : AppCompatActivity(),
         val strAwayLineupForward: String? = matches.first().strAwayLineupForward
         val strAwayLineupSubstitutes: String? = matches.first().strAwayLineupSubstitutes
 
-        matchDate.text = strDate
+        val dateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.getDefault())
+        val tempResult =  dateParser.parse("$strDate $strTime")
+        val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy - HH:mm")
+
+        val result = dateFormatter.format(tempResult)
+
+        matchDate.text = result.toString()
         homeName.text = strHomeTeam
         homeScore.text = intHomeScore
         awayName.text = strAwayTeam

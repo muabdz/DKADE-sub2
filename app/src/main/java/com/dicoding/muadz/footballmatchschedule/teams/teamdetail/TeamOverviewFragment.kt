@@ -1,5 +1,6 @@
 package com.dicoding.muadz.footballmatchschedule.teams.teamdetail
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.Gravity
@@ -50,6 +51,7 @@ class TeamOverviewFragment : Fragment(){
                 lparams(width = matchParent, height = wrapContent)
                 orientation = LinearLayout.VERTICAL
                 gravity = Gravity.CENTER
+                backgroundColor = Color.GREEN
 
                 teamDescription = textView{
 //                    here

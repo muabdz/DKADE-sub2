@@ -64,8 +64,6 @@ class PlayerUI : AnkoComponent<ViewGroup> {
                     textAlignment = View.TEXT_ALIGNMENT_TEXT_START
                 }.lparams{
                     margin = dip(15)
-                    weight = 1F
-                    height = wrapContent
                 }
 
                 textView {
@@ -74,8 +72,6 @@ class PlayerUI : AnkoComponent<ViewGroup> {
                     textAlignment = View.TEXT_ALIGNMENT_TEXT_END
                 }.lparams{
                     margin = dip(15)
-                    weight = 1F
-                    height = wrapContent
                 }
 
             }

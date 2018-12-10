@@ -22,7 +22,7 @@ import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class TeamFragment: Fragment(), AnkoComponent<Context>, TeamContract.View {
+class TeamFragment : Fragment(), AnkoComponent<Context>, TeamContract.View {
 
 
     private lateinit var listTeam: RecyclerView
@@ -38,12 +38,21 @@ class TeamFragment: Fragment(), AnkoComponent<Context>, TeamContract.View {
         super.onActivityCreated(savedInstanceState)
 
         val spinnerItems = resources.getStringArray(R.array.league)
-        val spinnerAdapter = ArrayAdapter(requireContext(),
-            R.layout.simple_spinner_dropdown_item, spinnerItems)
+        val spinnerAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.simple_spinner_dropdown_item, spinnerItems
+        )
         spinner.adapter = spinnerAdapter
 
-        adapter = TeamAdapter(teams){
-            context?.startActivity<TeamDetailActivity>("teamId" to "${it.teamId}")
+        adapter = TeamAdapter(teams) {
+            context?.startActivity<TeamDetailActivity>(
+                "teamId" to "${it.teamId}",
+                "teamName" to "${it.teamName}",
+                "teamBadge" to "${it.teamBadge}",
+                "teamFormedYear" to "${it.teamFormedYear}",
+                "teamStadium" to "${it.teamStadium}",
+                "teamDescription" to "${it.teamDescription}"
+            )
         }
         listTeam.adapter = adapter
 
@@ -67,9 +76,10 @@ class TeamFragment: Fragment(), AnkoComponent<Context>, TeamContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return createView(AnkoContext.create(requireContext()))
     }
-    override fun createView(ui: AnkoContext<Context>): View = with(ui){
+
+    override fun createView(ui: AnkoContext<Context>): View = with(ui) {
         linearLayout {
-            lparams (width = matchParent, height = wrapContent)
+            lparams(width = matchParent, height = wrapContent)
             orientation = LinearLayout.VERTICAL
             topPadding = dip(16)
             leftPadding = dip(16)
@@ -83,19 +93,20 @@ class TeamFragment: Fragment(), AnkoComponent<Context>, TeamContract.View {
                     R.color.colorAccent,
                     android.R.color.holo_green_light,
                     android.R.color.holo_orange_light,
-                    android.R.color.holo_red_light)
+                    android.R.color.holo_red_light
+                )
 
-                relativeLayout{
-                    lparams (width = matchParent, height = wrapContent)
+                relativeLayout {
+                    lparams(width = matchParent, height = wrapContent)
 
                     listTeam = recyclerView {
                         id = R.id.list_team
-                        lparams (width = matchParent, height = wrapContent)
+                        lparams(width = matchParent, height = wrapContent)
                         layoutManager = LinearLayoutManager(ctx)
                     }
 
                     progressBar = progressBar {
-                    }.lparams{
+                    }.lparams {
                         centerHorizontally()
                     }
                 }

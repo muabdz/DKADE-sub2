@@ -3,15 +3,18 @@ package com.dicoding.muadz.footballmatchschedule.teams.teamdetail
 import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
+import android.util.AttributeSet
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -22,6 +25,7 @@ import com.dicoding.muadz.footballmatchschedule.favorite.team.TeamDatabaseOpenHe
 import com.dicoding.muadz.footballmatchschedule.models.FavoriteTeam
 import com.dicoding.muadz.footballmatchschedule.models.Team
 import com.dicoding.muadz.footballmatchschedule.teams.teamdetail.players.PlayerFragment
+import com.dicoding.muadz.footballmatchschedule.teams.teamdetail.players.PlayerPresenter
 import com.dicoding.muadz.footballmatchschedule.utils.invisible
 import com.dicoding.muadz.footballmatchschedule.utils.visible
 import com.google.gson.Gson
@@ -49,8 +53,14 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
     private lateinit var teamStadium: TextView
     //    private lateinit var teamDescription: TextView
     private lateinit var presenter: TeamDetailPresenter
+    //    private lateinit var presenter: PlayerPresenter
     private lateinit var teams: Team
     private lateinit var teamId: String
+    private lateinit var teamNameString: String
+    private lateinit var teamBadgeString: String
+    private lateinit var teamYearString: String
+    private lateinit var teamStadiumString: String
+    private lateinit var teamDescString: String
     private var menuItem: Menu? = null
     private var isFavorite: Boolean = false
     private val Context.database: TeamDatabaseOpenHelper
@@ -65,6 +75,11 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
 
         val intent = intent
         teamId = intent.getStringExtra("teamId")
+        teamNameString = intent.getStringExtra("teamName")
+        teamBadgeString = intent.getStringExtra("teamBadge")
+        teamYearString = intent.getStringExtra("teamFormedYear")
+        teamDescString = intent.getStringExtra("teamDescription")
+        teamStadiumString = intent.getStringExtra("teamStadium")
 
         linearLayout {
             lparams(width = matchParent, height = wrapContent)
@@ -92,22 +107,26 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
                             gravity = Gravity.CENTER_HORIZONTAL
 
                             teamBadge = imageView { padding = dip(10) }.lparams(height = dip(100))
+                            Picasso.get().load(teamBadgeString).into(teamBadge)
 
                             teamName = textView {
                                 this.gravity = Gravity.CENTER
                                 textSize = 20f
                                 textColor = Color.WHITE
+                                text = teamNameString
                             }.lparams { topMargin = dip(5) }
 
                             teamFormedYear = textView {
                                 this.gravity = Gravity.CENTER
                                 textColor = Color.LTGRAY
+                                text = teamYearString
                             }
 
                             teamStadium = textView {
                                 this.gravity = Gravity.CENTER
                                 textSize = 18f
                                 textColor = Color.LTGRAY
+                                text = teamStadiumString
                             }
 
                             tabLayoutOverview = tabLayout {
@@ -124,7 +143,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
 //                            }
                         }
                         progressBar = progressBar {
-
+                            visibility = View.INVISIBLE
                         }.lparams {
                             centerHorizontally()
                         }
@@ -137,14 +156,19 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
         val request = ApiRepository()
         val gson = Gson()
         presenter = TeamDetailPresenter(this, request, gson)
-        presenter.getTeamDetail(teamId)
+
+
+
+
+//        presenter.getTeamDetail(teamId)
+//        presenter.getPlayerList(teamId)
         swipeRefresh.onRefresh {
-            presenter.getTeamDetail(teamId)
+            //            presenter.getTeamDetail(teamId)
         }
 
         val teamDetailPagerAdapter = TeamDetailPagerAdapter(supportFragmentManager)
         val teamOverviewArgs = Bundle().apply {
-            putString("teamDescription", teamId)
+            putString("teamDescription", teamDescString)
         }
         val playerArgs = Bundle().apply {
             putString("teamId", teamId)
@@ -181,17 +205,17 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailContract.View {
     }
 
     override fun showTeamDetail(data: List<Team>) {
-        teams = Team(
-            data[0].teamId,
-            data[0].teamName,
-            data[0].teamBadge
-        )
-        swipeRefresh.isRefreshing = false
-        Picasso.get().load(data[0].teamBadge).into(teamBadge)
-        teamName.text = data[0].teamName
-        teamDescription = data[0].teamDescription
-        teamFormedYear.text = data[0].teamFormedYear
-        teamStadium.text = data[0].teamStadium
+//        teams = Team(
+//            data[0].teamId,
+//            data[0].teamName,
+//            data[0].teamBadge
+//        )
+//        swipeRefresh.isRefreshing = false
+//        Picasso.get().load(data[0].teamBadge).into(teamBadge)
+//        teamName.text = data[0].teamName
+//        teamDescription = data[0].teamDescription
+//        teamFormedYear.text = data[0].teamFormedYear
+//        teamStadium.text = data[0].teamStadium
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

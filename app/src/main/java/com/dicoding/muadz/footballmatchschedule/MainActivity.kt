@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dicoding.muadz.footballmatchschedule.R.layout.activity_main
 import com.dicoding.muadz.footballmatchschedule.favorite.FavoriteFragment
-import com.dicoding.muadz.footballmatchschedule.favorite.match.FavoriteMatchFragment
 import com.dicoding.muadz.footballmatchschedule.matches.MatchFragment
 import com.dicoding.muadz.footballmatchschedule.teams.TeamFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,6 +28,11 @@ class MainActivity : AppCompatActivity(){
             true
         }
         bottom_navigation.selectedItemId = R.id.matches
+//        if (Intent.ACTION_SEARCH == intent.action) {
+//            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+//                searchMatchPresenter.searchMatch(query)
+//            }
+//        }
     }
 
     private fun loadMatchFragment(savedInstanceState: Bundle?) {

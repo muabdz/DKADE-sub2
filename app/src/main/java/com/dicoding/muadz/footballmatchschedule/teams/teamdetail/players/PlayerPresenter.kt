@@ -14,14 +14,14 @@ class PlayerPresenter(
     private val gson: Gson
 ): PlayerContract.Presenter{
     override fun getPlayerList(teamId: String?) {
-        view.showLoading()
+//        view.showLoading()
         GlobalScope.launch(Dispatchers.Main) {
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(SportDBApi.getPlayers(teamId)).await(),
                 Players::class.java
             )
-            view.hideLoading()
+//            view.hideLoading()
             view.showPlayerList(data.player)
         }
     }
