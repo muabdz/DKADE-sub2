@@ -29,4 +29,5 @@
     <item name="player_pos" type="id"/>
     <item name="list_player" type="id"/>
     <item name="search_match_list" type="id"/>
+    <item name="tvTime" type="id"/>
 </resources>

@@ -3,6 +3,7 @@ package com.dicoding.muadz.footballmatchschedule.matches.search
 import com.dicoding.muadz.footballmatchschedule.api.ApiRepository
 import com.dicoding.muadz.footballmatchschedule.api.SportDBApi
 import com.dicoding.muadz.footballmatchschedule.models.Matches
+import com.dicoding.muadz.footballmatchschedule.models.SearchMatches
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -21,7 +22,7 @@ class SearchMatchPresenter (
                 val data = gson.fromJson(
                     apiRepository
                         .doRequest(SportDBApi.searchMatch(keyWord)).await(),
-                    Matches::class.java
+                    SearchMatches::class.java
                 )
 
                 view.hideLoading()

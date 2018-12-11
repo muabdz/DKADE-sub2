@@ -16,7 +16,7 @@
     <string name="teams">Teams</string>
     <string name="search_hint">Search team..</string>
     <string name="search">Search</string>
-    <string name="empty_match">Empty favorite match.</string>
+    <string name="empty_match">Empty match.</string>
     <string name="empty_team">Empty favorite team.</string>
     <string name="empty_text">-</string>
     <string name="height">Height</string>

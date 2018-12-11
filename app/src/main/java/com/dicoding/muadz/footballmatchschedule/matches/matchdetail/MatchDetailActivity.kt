@@ -106,6 +106,7 @@ class MatchDetailActivity : AppCompatActivity(),
         matches.addAll(data)
 
         val matchDate: TextView = findViewById(R.id.tvTanggal)
+        val matchTime: TextView = findViewById(R.id.tvTime)
         val homeName: TextView = findViewById(R.id.tvTeam1)
         val homeScore: TextView = findViewById(R.id.tvScore1)
         val awayName: TextView = findViewById(R.id.tvTeam2)
@@ -149,11 +150,18 @@ class MatchDetailActivity : AppCompatActivity(),
         val strAwayLineupForward: String? = matches.first().strAwayLineupForward
         val strAwayLineupSubstitutes: String? = matches.first().strAwayLineupSubstitutes
 
-        val dateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.getDefault())
-        val tempResult = dateParser.parse("$strDate $strTime")
-        val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy - HH:mm")
-
+        val dateParser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val tempResult =  dateParser.parse(strDate)
+        val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy")
         val result = dateFormatter.format(tempResult)
+
+        if (strTime!=null) {
+            val timeParser = SimpleDateFormat("HH:mm:ssZ", Locale.getDefault())
+            val tempResultTime = timeParser.parse(strTime?.take(8) + "+00:00")
+            val timeFormatter = SimpleDateFormat("HH:mm")
+            val timeResult = timeFormatter.format(tempResultTime)
+            matchTime.text = timeResult.toString()
+        }
         resultString = result.toString()
 
         matchDate.text = resultString

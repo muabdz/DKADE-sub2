@@ -22,7 +22,7 @@ import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class FavoriteMatchFragment : Fragment(), FavoriteMatchView {
+class FavoriteMatchFragment : Fragment(), FavoriteMatchView{
 
     private var favoriteMatches: MutableList<FavoriteMatch> = mutableListOf()
     private lateinit var adapter: FavoriteRecycleViewAdapter

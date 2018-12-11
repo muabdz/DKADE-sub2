@@ -33,6 +33,7 @@ class MatchRecycleViewAdapter(private val matches: List<Match>) :
     class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val matchDate: TextView = view.find(R.id.tvTanggal)
+        private val matchTime: TextView = view.find(R.id.tvTime)
         private val homeName: TextView = view.find(R.id.tvTeam1)
         private val homeScore: TextView = view.find(R.id.tvScore1)
         private val awayName: TextView = view.find(R.id.tvTeam2)
@@ -41,11 +42,23 @@ class MatchRecycleViewAdapter(private val matches: List<Match>) :
 
         @SuppressLint("SimpleDateFormat")
         fun bindItem(matches: Match) {
-            val dateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.getDefault())
-            val tempResult =  dateParser.parse(matches.dateEvent+" "+matches.strTime)
-            val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy - HH:mm")
+//            val dateParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.getDefault())
+//            val tempResult =  dateParser.parse(matches.dateEvent+" "+matches.strTime)
+//            val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy - HH:mm")
+//            val result = dateFormatter.format(tempResult)
+
+            val dateParser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val tempResult =  dateParser.parse(matches.dateEvent)
+            val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy")
             val result = dateFormatter.format(tempResult)
 
+            if (matches.strTime!=null) {
+                val timeParser = SimpleDateFormat("HH:mm:ssZ", Locale.getDefault())
+                val tempResultTime = timeParser.parse(matches.strTime?.take(8) + "+00:00")
+                val timeFormatter = SimpleDateFormat("HH:mm")
+                val timeResult = timeFormatter.format(tempResultTime)
+                matchTime.text = timeResult.toString()
+            }
             matchDate.text = result.toString()
             homeName.text = matches.strHomeTeam
             homeScore.text = matches.intHomeScore
@@ -74,6 +87,12 @@ class MatchRecycleViewAdapter(private val matches: List<Match>) :
 
                     textView {
                         id = R.id.tvTanggal
+                        textSize = 14f
+                        gravity = Gravity.CENTER
+                    }
+
+                    textView {
+                        id = R.id.tvTime
                         textSize = 14f
                         gravity = Gravity.CENTER
                     }
