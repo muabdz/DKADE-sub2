@@ -130,12 +130,14 @@ class PlayerFragment : Fragment(), AnkoComponent<Context>, PlayerContract.View {
                 }
             }
 
+            presenter.getPlayerList(teamId)
+
             adapter = PlayerAdapter(players) {
-                context?.startActivity<PlayerDetailActivity>("teamId" to teamId)
+                context?.startActivity<PlayerDetailActivity>("playerId" to "${it.playerId}")
 //                context?.startActivity<PlayerDetailActivity>()
             }
             listPlayer.adapter = adapter
-            presenter.getPlayerList(teamId)
+
             swipeRefresh.onRefresh {
                 presenter.getPlayerList(teamId)
             }
@@ -156,9 +158,10 @@ class PlayerFragment : Fragment(), AnkoComponent<Context>, PlayerContract.View {
     }
 
     override fun showPlayerList(data: List<Player>) {
-//        swipeRefresh.isRefreshing = false
+        swipeRefresh.isRefreshing = false
         players.clear()
         players.addAll(data)
+
         adapter.notifyDataSetChanged()
     }
 }

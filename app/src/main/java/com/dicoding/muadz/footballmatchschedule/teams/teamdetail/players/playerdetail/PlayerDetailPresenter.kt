@@ -18,7 +18,7 @@ class PlayerDetailPresenter(
         GlobalScope.launch(Dispatchers.Main) {
             val data = gson.fromJson(
                 apiRepository
-                    .doRequest(SportDBApi.getPlayers(playerId)).await(),
+                    .doRequest(SportDBApi.getPlayerDetail(playerId)).await(),
                 PlayerDetail::class.java
             )
             view.hideLoading()

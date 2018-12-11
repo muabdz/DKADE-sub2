@@ -18,6 +18,10 @@
     <string name="search">Search</string>
     <string name="empty_match">Empty favorite match.</string>
     <string name="empty_team">Empty favorite team.</string>
+    <string name="empty_text">-</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="player_image">Player Image</string>
     <array name="league">
         <item>English Premier League</item>
         <item>English League Championship</item>

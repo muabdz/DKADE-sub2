@@ -43,7 +43,7 @@ class PlayerViewHolder(view: View) : RecyclerView.ViewHolder(view){
 //        Picasso.get().load(players.playerImage).into(playerImage)
         playerName.text = players.playerName
         playerPos.text = players.playerPos
-        itemView.setOnClickListener { listener(players) }
+        itemView.setOnClickListener  {listener(players)}
     }
 }
 
